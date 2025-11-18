@@ -15,10 +15,13 @@ requests>=2.31.0
 replicate>=0.25.0  # For Replicate API
 google-generativeai>=0.3.0  # For Google Gemini/Nano Banana API
 
-# Future dependencies (commented out for now)
-# diffusers
-# transformers
-# surya-ocr
-# deepseek-ocr
-# groundingdino
+# Optional advanced dependencies (install if needed)
+# surya-ocr>=0.4.0  # For AdvancedBackend OCR (better accuracy than Tesseract)
+# groundingdino-py>=0.4.0  # For SpatialEvaluator (object detection for spatial constraints)
+# 
+# To install optional dependencies:
+# pip install surya-ocr  # For advanced OCR
+# pip install groundingdino-py  # For spatial evaluation
+#
+# Note: These are optional - the code will fall back to Tesseract/CLIP if not installed
 

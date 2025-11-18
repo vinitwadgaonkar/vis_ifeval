@@ -22,7 +22,8 @@ class CompositionEvaluator(ConstraintEvaluator):
     - count: use "one/two/three/four ..." prompts and compare CLIP sims.
     - attribute: check similarity to "a {attribute} {object}" vs "{object}".
     - state: check similarity to "a {state} {object}" vs "{object}".
-    - spatial: currently a stub (returns 0.0 with warning).
+    
+    Note: Spatial constraints are handled by SpatialEvaluator, not this class.
     """
 
     def __init__(self, clip: ClipModelWrapper) -> None:
