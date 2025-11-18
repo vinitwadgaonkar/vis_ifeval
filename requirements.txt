@@ -9,6 +9,7 @@ wandb>=0.16.0
 matplotlib>=3.7.0
 torch>=2.0.0
 open_clip_torch>=2.20.0
+requests>=2.31.0
 
 # Future dependencies (commented out for now)
 # diffusers

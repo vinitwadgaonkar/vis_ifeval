@@ -16,20 +16,28 @@ Visual Instruction Following Evaluation Benchmark
 
 ### Implemented
 
-- ✅ Dummy image model (generates random images for testing)
-- ✅ SDXL model hook (requires torch and diffusers)
+- ✅ Multiple image models:
+  - DummyModel (random images for testing)
+  - SDXLModel (Stable Diffusion XL)
+  - SD3Model (Stable Diffusion 3)
+  - FluxModel (FLUX.1-dev)
+  - OpenAIModel (DALL-E 3/2)
 - ✅ Text evaluator using Tesseract OCR with backend abstraction
 - ✅ Nutrition label evaluator (table_slot constraints) with OCR parsing
 - ✅ Logic evaluator (percent_dv_consistency for sodium)
-- ✅ Negative evaluator (placeholder with CLIP hook ready)
+- ✅ CLIP-based negative evaluator (checks for forbidden concepts)
+- ✅ CLIP-based composition evaluator (count, attribute, state)
+- ✅ Spatial evaluator (stub, ready for GroundingDINO)
 - ✅ OCR backend abstraction (Tesseract + placeholder for advanced backends)
 - ✅ End-to-end pipeline (generate → evaluate → aggregate)
-- ✅ Weights & Biases integration for experiment tracking
+- ✅ Automated multi-model evaluation script
+- ✅ Results export utilities (tables, plots)
+- ✅ Enhanced W&B integration with visualization tables
+- ✅ Expanded prompt suite (23 prompts, 143 constraints)
 
 ### Partially Implemented / Stubs
 
-- 🔲 Composition evaluator (count, attribute, spatial, state constraints) - stub
-- 🔲 CLIP-based negative evaluator (placeholder ready, needs CLIP integration)
+- 🔲 Spatial evaluator (structure ready, needs GroundingDINO integration)
 - 🔲 Advanced OCR backends (Surya, DeepSeek-OCR) - placeholder ready
 
 ## Installation
@@ -63,14 +71,37 @@ Run the full evaluation pipeline:
 
 ```bash
 # 1. Generate images
-python -m vis_ifeval.runners.generate_images
+PYTHONPATH=src python -m vis_ifeval.runners.generate_images --model-name dummy
 
 # 2. Evaluate constraints
-python -m vis_ifeval.runners.evaluate_constraints
+PYTHONPATH=src python -m vis_ifeval.runners.evaluate_constraints --model-name dummy
 
 # 3. Aggregate metrics
-python -m vis_ifeval.runners.aggregate_metrics
+PYTHONPATH=src python -m vis_ifeval.runners.aggregate_metrics --model-name dummy
 ```
+
+### Multi-Model Evaluation
+
+Run evaluation for multiple models automatically:
+
+```bash
+PYTHONPATH=src python scripts/run_all_models.py --models dummy,sdxl,sd3
+```
+
+### Export Results
+
+Generate tables and plots for papers:
+
+```bash
+PYTHONPATH=src python -m vis_ifeval.utils.export_results --models dummy,sdxl
+```
+
+This creates:
+- `results/tables/model_vipr_table.md` - Markdown table
+- `results/tables/model_vipr_table.csv` - CSV table
+- `results/plots/vipr_by_model.png` - Bar chart
+- `results/plots/vipr_by_category.png` - Category comparison
+- `results/plots/vipr_by_type.png` - Type comparison
 
 ### Command Line Options
 

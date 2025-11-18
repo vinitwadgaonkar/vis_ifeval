@@ -10,6 +10,7 @@ from vis_ifeval.evaluators.comp_eval import CompositionEvaluator
 from vis_ifeval.evaluators.label_eval import LabelEvaluator
 from vis_ifeval.evaluators.logic_eval import LogicEvaluator
 from vis_ifeval.evaluators.negative_eval import NegativeEvaluator
+from vis_ifeval.evaluators.spatial_eval import SpatialEvaluator
 from vis_ifeval.evaluators.text_eval import TextEvaluator
 from vis_ifeval.utils.clip_utils import ClipConfig, ClipModelWrapper
 from vis_ifeval.utils.ocr_backend import build_text_backend
@@ -40,6 +41,7 @@ class EvaluatorRegistry:
                 LogicEvaluator(backend),
                 NegativeEvaluator(clip_wrapper),
                 CompositionEvaluator(clip_wrapper),
+                SpatialEvaluator(),  # Optional - will degrade gracefully
             ]
         else:
             self.evaluators = evaluators

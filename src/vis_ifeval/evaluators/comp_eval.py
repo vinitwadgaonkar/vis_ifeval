@@ -35,8 +35,8 @@ class CompositionEvaluator(ConstraintEvaluator):
         self._warned_disabled = False
 
     def can_handle(self, constraint: Dict[str, Any]) -> bool:
-        """Check if constraint type is composition-related."""
-        return constraint.get("type") in {"count", "attribute", "spatial", "state"}
+        """Check if constraint type is composition-related (excluding spatial)."""
+        return constraint.get("type") in {"count", "attribute", "state"}
 
     def _check_clip_enabled(self) -> bool:
         """Check if CLIP is enabled, log warning if not."""
@@ -150,15 +150,6 @@ class CompositionEvaluator(ConstraintEvaluator):
         score = 1.0 / (1.0 + math.exp(-8.0 * margin))
         return float(max(0.0, min(1.0, score)))
 
-    # ---------- SPATIAL (TODO) ----------
-
-    def _score_spatial(self, image: "Image.Image", constraint: Dict[str, Any]) -> float:
-        """
-        Placeholder for future spatial relation evaluation (needs detection / grounding).
-        """
-        logger.warning("CompositionEvaluator: spatial constraints not yet implemented, returning 0.0")
-        return 0.0
-
     def score(
         self, image: "Image.Image", prompt: Dict[str, Any], constraint: Dict[str, Any]
     ) -> float:
@@ -179,6 +170,4 @@ class CompositionEvaluator(ConstraintEvaluator):
             return self._score_attribute(image, constraint)
         if ctype == "state":
             return self._score_state(image, constraint)
-        if ctype == "spatial":
-            return self._score_spatial(image, constraint)
         return 0.0

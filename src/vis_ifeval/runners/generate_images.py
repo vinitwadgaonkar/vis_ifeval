@@ -20,7 +20,7 @@ def _build_model(model_name: str):
     """Build a model instance by name.
 
     Args:
-        model_name: Name of the model ("dummy" or "sdxl").
+        model_name: Name of the model ("dummy", "sdxl", "sd3", "flux", or "openai").
 
     Returns:
         ImageModel instance.
@@ -40,8 +40,38 @@ def _build_model(model_name: str):
             raise ImportError(
                 f"SDXL model requires additional dependencies. {e}"
             ) from e
+    elif model_name == "sd3":
+        try:
+            from vis_ifeval.models.sd3_model import SD3Model
+
+            return SD3Model()
+        except ImportError as e:
+            raise ImportError(
+                f"SD3 model requires additional dependencies. {e}"
+            ) from e
+    elif model_name == "flux":
+        try:
+            from vis_ifeval.models.flux_model import FluxModel
+
+            return FluxModel()
+        except ImportError as e:
+            raise ImportError(
+                f"FLUX model requires additional dependencies. {e}"
+            ) from e
+    elif model_name == "openai":
+        try:
+            from vis_ifeval.models.openai_model import OpenAIModel
+
+            return OpenAIModel()
+        except ImportError as e:
+            raise ImportError(
+                f"OpenAI model requires additional dependencies. {e}"
+            ) from e
     else:
-        raise ValueError(f"Unknown model name: {model_name}")
+        raise ValueError(
+            f"Unknown model name: {model_name}. "
+            "Supported: dummy, sdxl, sd3, flux, openai"
+        )
 
 
 def run_generate(

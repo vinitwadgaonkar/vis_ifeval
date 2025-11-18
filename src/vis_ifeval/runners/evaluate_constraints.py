@@ -126,10 +126,18 @@ def run_evaluate(
 
             global_step += 1
 
-        # Log sample images for first few prompts
+        # Log sample images for first few prompts with constraint scores
         if len(results) <= 10:
+            # Build caption with constraint scores
+            constraint_scores = [
+                r["score"]
+                for r in results
+                if r["prompt_id"] == prompt_id
+            ]
+            avg_score = sum(constraint_scores) / len(constraint_scores) if constraint_scores else 0.0
             caption = (
                 f"{model_name} | {prompt_id} | {category} | "
+                f"Avg Score: {avg_score:.3f} | "
                 f"Constraints: {len(prompt.get('constraints', []))}"
             )
             logger_wandb.log_image(
@@ -138,6 +146,35 @@ def run_evaluate(
                 caption=caption,
                 step=global_step,
             )
+
+            # Log constraint scores as a table/bar chart data
+            if logger_wandb.run is not None:
+                try:
+                    import wandb
+
+                    # Create a table of constraint scores for this prompt
+                    constraint_data = [
+                        [
+                            constraint["id"],
+                            constraint["type"],
+                            score,
+                            int(score >= 0.5),
+                        ]
+                        for constraint, score in zip(
+                            prompt.get("constraints", []),
+                            constraint_scores,
+                        )
+                    ]
+                    table = wandb.Table(
+                        columns=["constraint_id", "type", "score", "satisfied"],
+                        data=constraint_data,
+                    )
+                    logger_wandb.run.log(
+                        {f"eval/constraint_table/{prompt_id}": table},
+                        step=global_step,
+                    )
+                except Exception as e:
+                    logger.debug(f"Failed to log constraint table: {e}")
 
     # Save results JSONL
     results_path = Path("results") / f"scores_{model_name}.jsonl"

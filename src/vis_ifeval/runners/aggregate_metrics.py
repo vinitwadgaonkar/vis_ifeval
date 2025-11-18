@@ -135,6 +135,27 @@ def run_aggregate(
 
     logger_wandb.log(wandb_data)
 
+    # Create visualization tables for wandb
+    if logger_wandb.run is not None:
+        try:
+            import wandb
+
+            # VIPR by type table
+            type_table = wandb.Table(
+                columns=["constraint_type", "vipr"],
+                data=[[t, v] for t, v in sorted(vipr_by_type.items())],
+            )
+            logger_wandb.run.log({"summary/vipr_by_type_table": type_table})
+
+            # VIPR by category table
+            category_table = wandb.Table(
+                columns=["category", "vipr"],
+                data=[[c, v] for c, v in sorted(vipr_by_category.items())],
+            )
+            logger_wandb.run.log({"summary/vipr_by_category_table": category_table})
+        except Exception as e:
+            logger.debug(f"Failed to log wandb tables: {e}")
+
     # Finish wandb run
     logger_wandb.finish()
     logger.info("Aggregation complete")
