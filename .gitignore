@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Results and outputs
+results/*
+!results/.gitignore
+data/outputs/*
+!data/outputs/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# W&B
+wandb/
+
+# Test files
+*.png
+!data/outputs/test/.gitkeep
