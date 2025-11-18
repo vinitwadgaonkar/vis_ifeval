@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from vis_ifeval.config import load_config
 from vis_ifeval.evaluators.base import ConstraintEvaluator
 from vis_ifeval.evaluators.comp_eval import CompositionEvaluator
+from vis_ifeval.evaluators.csp_eval import CSPEvaluator
 from vis_ifeval.evaluators.label_eval import LabelEvaluator
 from vis_ifeval.evaluators.logic_eval import LogicEvaluator
 from vis_ifeval.evaluators.negative_eval import NegativeEvaluator
@@ -39,6 +40,7 @@ class EvaluatorRegistry:
                 TextEvaluator(backend),
                 LabelEvaluator(backend),
                 LogicEvaluator(backend),
+                CSPEvaluator(backend),
                 NegativeEvaluator(clip_wrapper),
                 CompositionEvaluator(clip_wrapper),
                 SpatialEvaluator(),  # Optional - will degrade gracefully

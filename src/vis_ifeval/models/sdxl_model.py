@@ -15,15 +15,22 @@ class SDXLModel(ImageModel):
         self,
         name: str = "sdxl",
         model_id: str = "stabilityai/stable-diffusion-xl-base-1.0",
-        device: str = "cuda",
+        device: Optional[str] = None,
     ) -> None:
         """Initialize SDXL model.
 
         Args:
             name: Model name.
             model_id: HuggingFace model ID.
-            device: Device to run on ("cuda" or "cpu").
+            device: Device to run on ("cuda" or "cpu"). Auto-detects if None.
         """
+        if device is None:
+            try:
+                import torch
+                device = "cuda" if torch.cuda.is_available() else "cpu"
+            except ImportError:
+                device = "cpu"
+        
         super().__init__(name=name, config={"model_id": model_id, "device": device})
         self.model_id = model_id
         self.device = device
@@ -66,7 +73,9 @@ class SDXLModel(ImageModel):
         if seed is not None:
             generator = generator.manual_seed(seed)
 
-        out = self.pipe(prompt=prompt, num_inference_steps=30, generator=generator)
+        # Use fewer steps on CPU for faster testing (30 steps is slow on CPU)
+        num_steps = 20 if self.device == "cpu" else 30
+        out = self.pipe(prompt=prompt, num_inference_steps=num_steps, generator=generator)
         img = out.images[0]
         return img
 

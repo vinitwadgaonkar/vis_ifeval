@@ -11,6 +11,10 @@ torch>=2.0.0
 open_clip_torch>=2.20.0
 requests>=2.31.0
 
+# API-based model dependencies (optional)
+replicate>=0.25.0  # For Replicate API
+google-generativeai>=0.3.0  # For Google Gemini/Nano Banana API
+
 # Future dependencies (commented out for now)
 # diffusers
 # transformers

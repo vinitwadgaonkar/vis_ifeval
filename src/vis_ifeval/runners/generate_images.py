@@ -20,7 +20,9 @@ def _build_model(model_name: str):
     """Build a model instance by name.
 
     Args:
-        model_name: Name of the model ("dummy", "sdxl", "sd3", "flux", or "openai").
+        model_name: Name of the model. Supported:
+            - Local: "dummy", "sdxl", "sd3", "flux"
+            - API: "openai", "novelai", "banana", "replicate", "stability-api", "gemini"
 
     Returns:
         ImageModel instance.
@@ -67,10 +69,55 @@ def _build_model(model_name: str):
             raise ImportError(
                 f"OpenAI model requires additional dependencies. {e}"
             ) from e
+    elif model_name == "novelai":
+        try:
+            from vis_ifeval.models.novelai_model import NovelAIModel
+
+            return NovelAIModel()
+        except (ImportError, ValueError) as e:
+            raise ImportError(
+                f"NovelAI model requires API key and dependencies. {e}"
+            ) from e
+    elif model_name == "banana":
+        try:
+            from vis_ifeval.models.banana_model import BananaModel
+
+            return BananaModel()
+        except (ImportError, ValueError) as e:
+            raise ImportError(
+                f"Banana model requires API key and dependencies. {e}"
+            ) from e
+    elif model_name == "replicate":
+        try:
+            from vis_ifeval.models.replicate_model import ReplicateModel
+
+            return ReplicateModel()
+        except (ImportError, ValueError) as e:
+            raise ImportError(
+                f"Replicate model requires API token and dependencies. {e}"
+            ) from e
+    elif model_name == "stability-api":
+        try:
+            from vis_ifeval.models.stability_api_model import StabilityAPIModel
+
+            return StabilityAPIModel()
+        except (ImportError, ValueError) as e:
+            raise ImportError(
+                f"Stability API model requires API key and dependencies. {e}"
+            ) from e
+    elif model_name == "gemini":
+        try:
+            from vis_ifeval.models.gemini_model import GeminiModel
+
+            return GeminiModel()
+        except (ImportError, ValueError) as e:
+            raise ImportError(
+                f"Gemini model requires API key and dependencies. {e}"
+            ) from e
     else:
         raise ValueError(
             f"Unknown model name: {model_name}. "
-            "Supported: dummy, sdxl, sd3, flux, openai"
+            "Supported: dummy, sdxl, sd3, flux, openai, novelai, banana, replicate, stability-api, gemini"
         )
 
 

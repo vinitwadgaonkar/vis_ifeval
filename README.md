@@ -17,11 +17,9 @@ Visual Instruction Following Evaluation Benchmark
 ### Implemented
 
 - ✅ Multiple image models:
-  - DummyModel (random images for testing)
-  - SDXLModel (Stable Diffusion XL)
-  - SD3Model (Stable Diffusion 3)
-  - FluxModel (FLUX.1-dev)
-  - OpenAIModel (DALL-E 3/2)
+  - **Local**: DummyModel, SDXLModel, SD3Model, FluxModel
+  - **API-based**: OpenAIModel (DALL-E), NovelAIModel, BananaModel, ReplicateModel, StabilityAPIModel
+  - See [API_MODELS_GUIDE.md](API_MODELS_GUIDE.md) for API setup
 - ✅ Text evaluator using Tesseract OCR with backend abstraction
 - ✅ Nutrition label evaluator (table_slot constraints) with OCR parsing
 - ✅ Logic evaluator (percent_dv_consistency for sodium)
