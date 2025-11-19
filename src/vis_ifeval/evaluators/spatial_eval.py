@@ -34,24 +34,60 @@ class SpatialEvaluator(ConstraintEvaluator):
             from groundingdino.util.slconfig import SLConfig
             from groundingdino.util.utils import clean_state_dict, get_phrases_from_posmap
             import torch
-
-            # Try to load GroundingDINO model
-            # Default config and checkpoint paths
-            config_file = "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
-            checkpoint_path = "groundingdino_swint_ogc.pth"
-
-            # Try alternative paths or environment variables
             import os
-            config_file = os.getenv("GROUNDINGDINO_CONFIG", config_file)
-            checkpoint_path = os.getenv("GROUNDINGDINO_CHECKPOINT", checkpoint_path)
+
+            # Find config file - try package location first, then environment variable, then relative path
+            try:
+                import groundingdino
+                package_dir = os.path.dirname(groundingdino.__file__)
+                config_file = os.path.join(package_dir, "config", "GroundingDINO_SwinT_OGC.py")
+                if not os.path.exists(config_file):
+                    config_file = None
+            except:
+                config_file = None
+
+            # Try environment variable
+            if not config_file:
+                config_file = os.getenv("GROUNDINGDINO_CONFIG")
+
+            # Try relative path as fallback
+            if not config_file or not os.path.exists(config_file):
+                config_file = "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+
+            # Find checkpoint file - try relative path, then environment variable
+            checkpoint_path = os.getenv("GROUNDINGDINO_CHECKPOINT")
+            if not checkpoint_path:
+                # Try common locations
+                possible_paths = [
+                    "weights/groundingdino_swint_ogc.pth",
+                    "groundingdino_swint_ogc.pth",
+                    os.path.expanduser("~/weights/groundingdino_swint_ogc.pth"),
+                ]
+                for path in possible_paths:
+                    if os.path.exists(path):
+                        checkpoint_path = path
+                        break
+
+            if not checkpoint_path:
+                logger.debug("GroundingDINO checkpoint not found. Download from: https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-alpha/groundingdino_swint_ogc.pth")
+                return
+
+            if not os.path.exists(config_file):
+                logger.debug(f"GroundingDINO config file not found at: {config_file}")
+                return
 
             try:
-                self.model = load_model(config_file, checkpoint_path)
+                # Load model (use CPU if CUDA not available)
+                device = "cuda" if torch.cuda.is_available() else "cpu"
+                self.model = load_model(config_file, checkpoint_path, device=device)
+                self.model.eval()  # Set to evaluation mode
                 self.detector = "groundingdino"
-                logger.info("GroundingDINO model loaded successfully")
+                logger.info(f"GroundingDINO model loaded successfully (device: {device})")
             except (FileNotFoundError, OSError) as e:
-                logger.debug(f"GroundingDINO model files not found: {e}")
-                logger.debug("Install GroundingDINO and download model weights for spatial evaluation")
+                logger.debug(f"GroundingDINO model loading failed: {e}")
+                logger.debug("Ensure model weights are downloaded and paths are correct")
+            except Exception as e:
+                logger.debug(f"GroundingDINO model loading error: {e}")
         except ImportError:
             logger.debug("GroundingDINO not available for spatial evaluation. Install with: pip install groundingdino-py")
 
@@ -165,27 +201,52 @@ class SpatialEvaluator(ConstraintEvaluator):
         Returns:
             List of bounding boxes as (x1, y1, x2, y2) tuples.
         """
-        from groundingdino.util.inference import predict
+        from groundingdino.util.inference import predict, load_image
         import torch
         import numpy as np
         from PIL import Image
 
-        # Convert PIL to numpy array
-        img_array = np.array(image.convert("RGB"))
+        # Convert PIL image to format expected by GroundingDINO
+        # load_image returns (image, image_source) tuple where image is a torch tensor
+        try:
+            # Save PIL image temporarily and use load_image, or convert directly
+            # GroundingDINO's load_image expects a file path, so we'll convert manually
+            img_array = np.array(image.convert("RGB"))
+            # Convert numpy array to torch tensor and normalize
+            import torchvision.transforms as transforms
+            transform = transforms.Compose([
+                transforms.ToPILImage(),
+                transforms.ToTensor(),
+            ])
+            img_tensor = transform(img_array)
+            
+        except Exception:
+            # Fallback: use numpy array directly (may need adjustment)
+            img_array = np.array(image.convert("RGB"))
+            img_tensor = torch.from_numpy(img_array).permute(2, 0, 1).float() / 255.0
         
-        # Set up text prompt
+        # Set up text prompt (GroundingDINO expects format: "object. .")
         text_prompt = f"{object_description}. ."
-        box_threshold = 0.3
-        text_threshold = 0.25
+        # Lower thresholds for better detection (can be adjusted)
+        box_threshold = 0.2
+        text_threshold = 0.2
 
         try:
-            # Run detection
+            # Ensure model is on correct device
+            device = next(self.model.parameters()).device
+            # Ensure device is CPU if CUDA not available
+            if not torch.cuda.is_available():
+                device = "cpu"
+            
+            # Run detection - explicitly pass device to predict function
+            self.model = self.model.to(device)
             boxes, logits, phrases = predict(
                 model=self.model,
-                image=img_array,
+                image=img_tensor,
                 caption=text_prompt,
                 box_threshold=box_threshold,
-                text_threshold=text_threshold
+                text_threshold=text_threshold,
+                device=device  # Explicitly pass device to avoid CUDA errors
             )
 
             if boxes is None or len(boxes) == 0:

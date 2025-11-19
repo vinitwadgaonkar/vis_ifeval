@@ -652,3 +652,6 @@ The system combines computer vision (OCR, CLIP), natural language processing (te
 
 
 
+
+
+

@@ -28,6 +28,9 @@ Thumbs.db
 # W&B
 wandb/
 
+# Model weights (too large for git)
+weights/
+
 # Test files
 *.png
 !data/outputs/test/.gitkeep

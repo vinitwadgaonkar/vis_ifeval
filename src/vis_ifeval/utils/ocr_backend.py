@@ -2,6 +2,7 @@
 
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
+import os
 
 if TYPE_CHECKING:
     from PIL import Image
@@ -65,6 +66,9 @@ class AdvancedBackend(TextBackend):
 
     def _initialize_backend(self) -> None:
         """Initialize the OCR backend, with fallback to Tesseract."""
+        import logging
+        logger = logging.getLogger(__name__)
+
         if self.model_name == "surya":
             try:
                 from surya.ocr import run_ocr
@@ -85,18 +89,54 @@ class AdvancedBackend(TextBackend):
 
         elif self.model_name == "deepseek":
             try:
-                # DeepSeek-OCR integration would go here
-                # For now, fall through to Tesseract
-                pass
-            except ImportError:
-                pass
+                from transformers import AutoModelForCausalLM
+                from deepseek_vl.models import VLChatProcessor
+                import torch
+                
+                # Use the smaller 1.3b model for feasibility
+                model_path = "deepseek-ai/deepseek-vl-1.3b-chat"
+                logger.info(f"Loading DeepSeek-VL model from {model_path}...")
+                
+                self._vl_chat_processor = VLChatProcessor.from_pretrained(model_path)
+                self._tokenizer = self._vl_chat_processor.tokenizer
+
+                # Determine device
+                self._device = "cuda" if torch.cuda.is_available() else "cpu"
+                if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+                    self._device = "mps" # DeepSeek might not fully support MPS out of box, but let's try
+                    # If MPS fails, might need to fallback to CPU, but standard torch should work.
+                    # Actually, for safety with custom kernels, let's stick to CPU if not CUDA for now
+                    # unless we are sure.
+                    # But let's try CPU first for compatibility if CUDA is missing.
+                    self._device = "cpu" 
+                
+                if torch.cuda.is_available():
+                    self._vl_gpt = AutoModelForCausalLM.from_pretrained(
+                        model_path, 
+                        trust_remote_code=True,
+                        torch_dtype=torch.bfloat16
+                    ).to(self._device).eval()
+                else:
+                    # CPU/MPS might need float32
+                    self._vl_gpt = AutoModelForCausalLM.from_pretrained(
+                        model_path, 
+                        trust_remote_code=True
+                    ).to(self._device).eval()
+                
+                self._backend = "deepseek"
+                logger.info(f"DeepSeek-VL loaded successfully on {self._device}")
+                return
+            except ImportError as e:
+                logger.warning(f"DeepSeek dependencies missing: {e}")
+            except Exception as e:
+                logger.warning(f"Failed to load DeepSeek model: {e}")
+                import traceback
+                traceback.print_exc()
 
         # Fallback to Tesseract
-        import logging
-        logger = logging.getLogger(__name__)
         logger.warning(
             f"Advanced OCR backend '{self.model_name}' not available. "
-            "Falling back to Tesseract. Install with: pip install surya-ocr"
+            "Falling back to Tesseract. Install with: pip install surya-ocr or deepseek-vl"
         )
         self._fallback = TesseractBackend()
         self._backend = "tesseract"
@@ -112,6 +152,8 @@ class AdvancedBackend(TextBackend):
         """
         if self._backend == "surya":
             return self._extract_with_surya(image)
+        elif self._backend == "deepseek":
+            return self._extract_with_deepseek(image)
         elif self._fallback:
             return self._fallback.extract_text(image)
         else:
@@ -171,6 +213,75 @@ class AdvancedBackend(TextBackend):
             # Fallback to Tesseract on error
             return TesseractBackend().extract_text(image)
 
+    def _extract_with_deepseek(self, image: "Image.Image") -> str:
+        """Extract text using DeepSeek-VL.
+
+        Args:
+            image: PIL Image to extract text from.
+
+        Returns:
+            Extracted text as a string.
+        """
+        from deepseek_vl.utils.io import load_pil_images
+        import tempfile
+        import torch
+        
+        # Create temp file for the image because load_pil_images expects it?
+        # Actually load_pil_images helper might be needed, or we can construct input manually.
+        # But let's stick to standard usage.
+        
+        # Save image to temp file
+        with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
+            image.convert("RGB").save(tmp.name)
+            tmp_path = tmp.name
+
+        try:
+            conversation = [
+                {
+                    "role": "User",
+                    "content": "<image_placeholder>Extract all text from this image verbatim, preserving line breaks.",
+                    "images": [tmp_path]
+                },
+                {
+                    "role": "Assistant",
+                    "content": ""
+                }
+            ]
+            
+            pil_images = load_pil_images(conversation)
+            prepare_inputs = self._vl_chat_processor(
+                conversations=[conversation],
+                images=pil_images,
+                force_batchify=True
+            ).to(self._device)
+            
+            # Generate
+            inputs_embeds = self._vl_gpt.prepare_inputs_embeds(**prepare_inputs)
+            
+            with torch.no_grad():
+                outputs = self._vl_gpt.language_model.generate(
+                    inputs_embeds=inputs_embeds,
+                    attention_mask=prepare_inputs.attention_mask,
+                    pad_token_id=self._tokenizer.eos_token_id,
+                    bos_token_id=self._tokenizer.bos_token_id,
+                    eos_token_id=self._tokenizer.eos_token_id,
+                    max_new_tokens=512,
+                    do_sample=False,
+                    use_cache=True
+                )
+                
+            answer = self._tokenizer.decode(outputs[0].cpu().tolist(), skip_special_tokens=True)
+            return answer
+
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"DeepSeek OCR extraction failed: {e}. Falling back to Tesseract.")
+            return TesseractBackend().extract_text(image)
+        finally:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+
 
 def build_text_backend(name: str) -> TextBackend:
     """Factory to select OCR backend by name.
@@ -191,4 +302,3 @@ def build_text_backend(name: str) -> TextBackend:
         return AdvancedBackend(model_name=name)
     else:
         raise ValueError(f"Unknown OCR backend: {name}")
-

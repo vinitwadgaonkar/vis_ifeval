@@ -15,17 +15,20 @@ class OpenAIModel(ImageModel):
     def __init__(
         self,
         name: str = "openai",
-        model: str = "dall-e-3",
+        model: str = "gpt-image-1",
         size: str = "1024x1024",
-        quality: str = "standard",
+        quality: str = "high",
+        organization: str | None = None,
     ) -> None:
         """Initialize OpenAI model.
 
         Args:
             name: Model name.
-            model: OpenAI model name ("dall-e-3" or "dall-e-2").
-            size: Image size ("1024x1024", "1792x1024", "1024x1792" for DALL-E 3).
-            quality: Image quality ("standard" or "hd" for DALL-E 3).
+            model: OpenAI model name ("gpt-image-1", "dall-e-3", or "dall-e-2").
+            size: Image size ("1024x1024", "1792x1024", "1024x1792").
+            quality: Image quality. For gpt-image-1: "low", "medium", "high". 
+                     For dall-e-3: "standard" or "hd".
+            organization: Optional OpenAI organization ID.
         """
         super().__init__(
             name=name,
@@ -43,6 +46,7 @@ class OpenAIModel(ImageModel):
             raise ValueError(
                 "OpenAI API key not found. Set OPENAI_API_KEY environment variable."
             )
+        self.organization = organization or os.getenv("OPENAI_ORG_ID")
 
     def generate(self, prompt: str, seed: Optional[int] = None) -> "Image.Image":
         """Generate an image from a text prompt.
@@ -61,9 +65,31 @@ class OpenAIModel(ImageModel):
                 "OpenAI model requires openai package. Install with: pip install openai"
             ) from e
 
-        client = OpenAI(api_key=self.api_key)
+        # Initialize client with organization if provided
+        client_kwargs = {"api_key": self.api_key}
+        if self.organization:
+            client_kwargs["organization"] = self.organization
+        client = OpenAI(**client_kwargs)
 
-        if self.model_name == "dall-e-3":
+        if self.model_name == "gpt-image-1":
+            # GPT Image 1 model - uses b64_json response and quality parameter
+            response = client.images.generate(
+                model=self.model_name,
+                prompt=prompt,
+                size=self.size,
+                quality=self.quality,  # "low", "medium", "high"
+                n=1,
+            )
+            # GPT Image 1 returns base64 encoded image
+            import base64
+            from io import BytesIO
+            from PIL import Image
+            
+            image_base64 = response.data[0].b64_json
+            image_data = base64.b64decode(image_base64)
+            img = Image.open(BytesIO(image_data))
+            return img
+        elif self.model_name == "dall-e-3":
             response = client.images.generate(
                 model=self.model_name,
                 prompt=prompt,
@@ -71,6 +97,16 @@ class OpenAIModel(ImageModel):
                 quality=self.quality,
                 n=1,
             )
+            image_url = response.data[0].url
+
+            # Download and convert to PIL Image
+            import requests
+            from io import BytesIO
+            from PIL import Image
+
+            img_response = requests.get(image_url)
+            img = Image.open(BytesIO(img_response.content))
+            return img
         else:  # dall-e-2
             response = client.images.generate(
                 model=self.model_name,
@@ -78,15 +114,14 @@ class OpenAIModel(ImageModel):
                 size=self.size,
                 n=1,
             )
+            image_url = response.data[0].url
 
-        image_url = response.data[0].url
+            # Download and convert to PIL Image
+            import requests
+            from io import BytesIO
+            from PIL import Image
 
-        # Download and convert to PIL Image
-        import requests
-        from io import BytesIO
-        from PIL import Image
-
-        img_response = requests.get(image_url)
-        img = Image.open(BytesIO(img_response.content))
-        return img
+            img_response = requests.get(image_url)
+            img = Image.open(BytesIO(img_response.content))
+            return img
 
