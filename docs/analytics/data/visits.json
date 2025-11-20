@@ -1,1 +1,130 @@
-{"unique_visitors": 0, "total_visits": 0, "today_visits": 0, "this_week": 0, "daily_visits": [], "recent_visitors": [], "last_updated": null}
+{
+  "unique_visitors": 0,
+  "total_visits": 0,
+  "today_visits": 0,
+  "this_week": 0,
+  "daily_visits": [
+    {
+      "date": "2025-10-22",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-23",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-24",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-25",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-26",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-27",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-28",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-29",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-30",
+      "visits": 0
+    },
+    {
+      "date": "2025-10-31",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-01",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-02",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-03",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-04",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-05",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-06",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-07",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-08",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-09",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-10",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-11",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-12",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-13",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-14",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-15",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-16",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-17",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-18",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-19",
+      "visits": 0
+    },
+    {
+      "date": "2025-11-20",
+      "visits": 0
+    }
+  ],
+  "recent_visitors": [],
+  "last_updated": "2025-11-20T03:23:15.410808"
+}
