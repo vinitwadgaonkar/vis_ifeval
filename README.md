@@ -1,6 +1,17 @@
 # Visual Instruction Following Evaluation Benchmark
 
-A comprehensive benchmark for evaluating visual instruction following capabilities of image generation models. This benchmark tests whether generated images satisfy complex prompts with multiple constraints including object counts, text rendering, spatial relationships, and compositional requirements.
+> A comprehensive, production-ready benchmark for evaluating visual instruction following capabilities of modern image generation models. This benchmark rigorously tests whether generated images satisfy complex prompts with multiple constraints including object counts, text rendering, spatial relationships, and compositional requirements.
+
+## Overview
+
+The Visual Instruction Following Evaluation Benchmark (vis_ifeval) is a systematic framework for assessing how well image generation models follow detailed visual instructions. Unlike simple text-to-image benchmarks, vis_ifeval evaluates models on their ability to handle:
+
+- **Complex Constraints**: Multiple simultaneous requirements (8-12 per prompt)
+- **Precision Tasks**: Exact text rendering, numeric accuracy, spatial relationships
+- **Compositional Reasoning**: Object counts, attributes, states, and relationships
+- **Real-World Scenarios**: Nutrition labels, character consistency, sketch-to-render tasks
+
+The benchmark includes 9 specialized evaluators, 13 CSP constraint types, and supports evaluation of leading models including OpenAI DALL-E 3, GPT Image 1, and Google Gemini.
 
 ## Features
 
