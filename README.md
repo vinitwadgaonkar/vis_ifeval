@@ -1,6 +1,6 @@
 # Visual Instruction Following Evaluation Benchmark
 
-> A comprehensive, production-ready benchmark for evaluating visual instruction following capabilities of modern image generation models. This benchmark rigorously tests whether generated images satisfy complex prompts with multiple constraints including object counts, text rendering, spatial relationships, and compositional requirements.
+A comprehensive benchmark for evaluating visual instruction following capabilities of image generation models. This benchmark tests whether generated images satisfy complex prompts with multiple constraints including object counts, text rendering, spatial relationships, and compositional requirements.
 
 ## Overview
 
@@ -341,29 +341,3 @@ Results are saved in JSON format and can be visualized using the analysis script
 - [MacBook Setup](SETUP_MACBOOK.md) - Setup guide for macOS
 - [Quick Start Guide](QUICK_START_MAC.md) - Quick reference
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-[Add your license here]
-
-## Citation
-
-If you use this benchmark in your research, please cite:
-
-```bibtex
-@software{vis_ifeval,
-  title = {Visual Instruction Following Evaluation Benchmark},
-  author = {Wadgaonkar, Vinit},
-  year = {2024},
-  url = {https://github.com/vinitwadgaonkar/vis_ifeval}
-}
-```
-
-## Acknowledgments
-
-- DeepSeek-OCR for advanced OCR capabilities
-- OpenAI, Google, and other model providers
-- The open-source community for various tools and libraries
