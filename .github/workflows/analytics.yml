@@ -1,0 +1,186 @@
+name: Track Repository Analytics
+
+on:
+  repository_dispatch:
+    types: [track-visit]
+  schedule:
+    # Run every hour to aggregate data
+    - cron: '0 * * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/analytics.yml'
+
+jobs:
+  track-analytics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Track and Aggregate Analytics
+        run: |
+          python << 'EOF'
+          import json
+          import os
+          from datetime import datetime, timedelta
+          from pathlib import Path
+          import hashlib
+          
+          # Paths
+          data_dir = Path('docs/analytics/data')
+          data_dir.mkdir(parents=True, exist_ok=True)
+          visits_file = data_dir / 'visits.json'
+          raw_data_file = data_dir / 'raw_visits.jsonl'
+          
+          # Initialize data structures
+          if visits_file.exists():
+              with open(visits_file, 'r') as f:
+                  visits_data = json.load(f)
+          else:
+              visits_data = {
+                  'unique_visitors': 0,
+                  'total_visits': 0,
+                  'visitor_hashes': set(),
+                  'visits': [],
+                  'last_updated': None
+              }
+          
+          # Convert set to list for JSON serialization
+          if 'visitor_hashes' in visits_data and isinstance(visits_data['visitor_hashes'], list):
+              visits_data['visitor_hashes'] = set(visits_data['visitor_hashes'])
+          
+          # Read raw visit data
+          visits = []
+          if raw_data_file.exists():
+              with open(raw_data_file, 'r') as f:
+                  for line in f:
+                      if line.strip():
+                          visits.append(json.loads(line))
+          
+          # Get current visit info (simulated from GitHub API)
+          # In a real scenario, you'd get this from webhook or API
+          current_time = datetime.utcnow().isoformat()
+          
+          # Aggregate data
+          unique_hashes = set()
+          visit_counts = {}
+          recent_visitors = []
+          
+          for visit in visits:
+              # Create hash from IP + User-Agent (if available)
+              visit_hash = visit.get('hash', hashlib.md5(
+                  (visit.get('ip', 'unknown') + visit.get('user_agent', '')).encode()
+              ).hexdigest())
+              unique_hashes.add(visit_hash)
+              
+              # Count visits by date
+              visit_date = visit.get('timestamp', current_time)[:10]
+              visit_counts[visit_date] = visit_counts.get(visit_date, 0) + 1
+              
+              # Recent visitors (last 50)
+              recent_visitors.append({
+                  'ip': visit.get('ip', 'Unknown'),
+                  'timestamp': visit.get('timestamp', current_time),
+                  'referrer': visit.get('referrer', ''),
+                  'hash': visit_hash
+              })
+          
+          # Sort recent visitors by timestamp
+          recent_visitors.sort(key=lambda x: x['timestamp'], reverse=True)
+          recent_visitors = recent_visitors[:50]
+          
+          # Calculate stats
+          today = datetime.utcnow().date().isoformat()
+          week_ago = (datetime.utcnow() - timedelta(days=7)).date().isoformat()
+          
+          today_visits = visit_counts.get(today, 0)
+          this_week = sum(count for date, count in visit_counts.items() if date >= week_ago)
+          
+          # Daily visits for last 30 days
+          daily_visits = []
+          for i in range(30):
+              date = (datetime.utcnow() - timedelta(days=i)).date().isoformat()
+              daily_visits.append({
+                  'date': date,
+                  'visits': visit_counts.get(date, 0)
+              })
+          daily_visits.reverse()
+          
+          # Prepare output
+          output = {
+              'unique_visitors': len(unique_hashes),
+              'total_visits': len(visits),
+              'today_visits': today_visits,
+              'this_week': this_week,
+              'daily_visits': daily_visits,
+              'recent_visitors': recent_visitors,
+              'last_updated': current_time
+          }
+          
+          # Save aggregated data
+          with open(visits_file, 'w') as f:
+              json.dump(output, f, indent=2)
+          
+          print(f"Analytics updated: {output['unique_visitors']} unique visitors, {output['total_visits']} total visits")
+          EOF
+
+      - name: Commit analytics data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/analytics/data/visits.json
+          git diff --staged --quiet || git commit -m "Update analytics data [skip ci]"
+          git push
+
+      - name: Track GitHub Insights
+        run: |
+          python << 'EOF'
+          import json
+          import os
+          from pathlib import Path
+          from datetime import datetime
+          
+          # This would integrate with GitHub API to get actual traffic data
+          # For now, we'll create a placeholder that you can enhance
+          insights_file = Path('docs/analytics/data/github_insights.json')
+          insights_file.parent.mkdir(parents=True, exist_ok=True)
+          
+          insights = {
+              'note': 'To get actual GitHub Insights data, enable GitHub Insights in repository settings',
+              'instructions': [
+                  '1. Go to your repository on GitHub',
+                  '2. Click on "Insights" tab',
+                  '3. Click on "Traffic" to see visitor statistics',
+                  '4. This includes:',
+                  '   - Unique visitors',
+                  '   - Total views',
+                  '   - Clones',
+                  '   - Referring sites',
+                  '   - Popular content'
+              ],
+              'last_checked': datetime.utcnow().isoformat()
+          }
+          
+          with open(insights_file, 'w') as f:
+              json.dump(insights, f, indent=2)
+          EOF
+
+      - name: Create .nojekyll for GitHub Pages
+        run: |
+          touch docs/analytics/.nojekyll
+          git add docs/analytics/.nojekyll
+          git diff --staged --quiet || git commit -m "Add .nojekyll for GitHub Pages" && git push || true
+
