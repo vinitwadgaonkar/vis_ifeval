@@ -1,0 +1,26 @@
+[
+  {
+    "number": 1,
+    "prompt_id": "text_005",
+    "type": "text_rendering",
+    "category": "poster_text",
+    "pass_rate": 0.4,
+    "image_path": "/home/csgrad/vinitwad/vinit_benchmark/paper_assets/case_studies/case_study_01_text_005.png"
+  },
+  {
+    "number": 2,
+    "prompt_id": "comp_001",
+    "type": "composition",
+    "category": "composition",
+    "pass_rate": 0.5,
+    "image_path": "/home/csgrad/vinitwad/vinit_benchmark/paper_assets/case_studies/case_study_02_comp_001.png"
+  },
+  {
+    "number": 3,
+    "prompt_id": "csp_01_numbers_row",
+    "type": "csp",
+    "category": "csp_demo",
+    "pass_rate": 1.0,
+    "image_path": "/home/csgrad/vinitwad/vinit_benchmark/paper_assets/case_studies/case_study_03_csp_01_numbers_row.png"
+  }
+]

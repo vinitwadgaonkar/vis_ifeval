@@ -1,0 +1,213 @@
+{
+  "gpt-image-1": {
+    "by_type": {},
+    "by_category": {
+      "poster_text": 1
+    },
+    "common_failures": [
+      {
+        "id": "text_003",
+        "category": "poster_text",
+        "error": "Error code: 400 - {'error': {'message': 'Your request was rejected by the safety system. If you beli"
+      }
+    ]
+  },
+  "nano-banana": {
+    "by_type": {},
+    "by_category": {},
+    "common_failures": []
+  },
+  "dall-e-3": {
+    "by_type": {},
+    "by_category": {
+      "nutrition_label": 2,
+      "composition": 5,
+      "advanced": 5,
+      "csp_demo": 13,
+      "character_consistency": 6,
+      "sketch_to_render": 5
+    },
+    "common_failures": [
+      {
+        "id": "nutri_005",
+        "category": "nutrition_label",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "nutri_006",
+        "category": "nutrition_label",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "comp_002",
+        "category": "composition",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "comp_003",
+        "category": "composition",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "comp_004",
+        "category": "composition",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "comp_005",
+        "category": "composition",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "comp_006",
+        "category": "composition",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "advanced_001",
+        "category": "advanced",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "advanced_002",
+        "category": "advanced",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "advanced_003",
+        "category": "advanced",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "advanced_004",
+        "category": "advanced",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "advanced_005",
+        "category": "advanced",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_01_numbers_row",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_02_sum_equals",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_03_descending_order",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_04_unique_values",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_05_equation_check",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_06_range_constraint",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_07_equals_constraint",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_08_product_equals",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_09_difference_equals",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_10_ratio_constraint",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_11_min_max_constraints",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_12_chain_relation",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "csp_13_modulo_constraint",
+        "category": "csp_demo",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "char_001",
+        "category": "character_consistency",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "char_002",
+        "category": "character_consistency",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "char_003",
+        "category": "character_consistency",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "char_004",
+        "category": "character_consistency",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "char_005",
+        "category": "character_consistency",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "char_006",
+        "category": "character_consistency",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "sketch_001",
+        "category": "sketch_to_render",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "sketch_002",
+        "category": "sketch_to_render",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "sketch_003",
+        "category": "sketch_to_render",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "sketch_004",
+        "category": "sketch_to_render",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      },
+      {
+        "id": "sketch_005",
+        "category": "sketch_to_render",
+        "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_genera"
+      }
+    ]
+  }
+}

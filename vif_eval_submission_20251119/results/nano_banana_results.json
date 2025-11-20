@@ -1,0 +1,1627 @@
+{
+  "metadata": {
+    "timestamp": "2025-11-19T15:17:12.249105",
+    "total_prompts": 47,
+    "model": "google/gemini-2.5-flash-image",
+    "provider": "openrouter",
+    "size": "1024x1024",
+    "quality": "high",
+    "merged_with_special_evaluators": true,
+    "merge_timestamp": "1763587751.7421215"
+  },
+  "prompts": [
+    {
+      "id": "comp_001",
+      "category": "composition",
+      "prompt": "A photo of three blue mugs and two red plates on a wooden table. One of the blue mugs is tipped over. The largest blue mug is on the left side of the table, and the smallest red plate is on the right side.",
+      "constraints": [
+        {
+          "id": "mug_count",
+          "type": "count",
+          "score": 0.4600867968368688,
+          "passed": false
+        },
+        {
+          "id": "plate_count",
+          "type": "count",
+          "score": 0.452692511149612,
+          "passed": false
+        },
+        {
+          "id": "mug_color",
+          "type": "attribute",
+          "score": 0.4956374083416912,
+          "passed": false
+        },
+        {
+          "id": "plate_color",
+          "type": "attribute",
+          "score": 0.47295120190729467,
+          "passed": false
+        },
+        {
+          "id": "tipped_mug",
+          "type": "state",
+          "score": 0.49804071594774196,
+          "passed": false
+        },
+        {
+          "id": "largest_mug_left",
+          "type": "spatial",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "smallest_plate_right",
+          "type": "spatial",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "table_material",
+          "type": "attribute",
+          "score": 0.36655124729927574,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/comp_001.png",
+      "error": null
+    },
+    {
+      "id": "text_001",
+      "category": "poster_text",
+      "prompt": "A colorful poster advertising a SPRING SALE. The headline text at the top says 'SPRING SALE' in large bold letters. At the bottom, there is text that says 'Up to 50% OFF'. There is also a price tag visible with the text '$29.99'.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.7613003866968737,
+          "passed": true
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 0.012467682474775315,
+          "passed": false
+        },
+        {
+          "id": "price_tag_text",
+          "type": "text",
+          "score": 2.2603294069810542e-06,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/text_001.png",
+      "error": null
+    },
+    {
+      "id": "nutri_001",
+      "category": "nutrition_label",
+      "prompt": "A water bottle with a nutrition label. The label has 'PURE WATER' as the headline at the top. The nutrition facts table shows: Serving Size 250 mL, Calories 0, Total Fat 0 g, Sodium 50 mg (2 percent DV), Total Carbohydrate 0 g, Protein 0 g. The sodium value should be consistent (50 mg equals 2 percent DV). There should be no sugar mentioned anywhere on the label.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 0.0005530843701478336,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.16529888822158656,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.770381397592146,
+          "passed": true
+        },
+        {
+          "id": "no_sugar",
+          "type": "negative",
+          "score": 0.7800541520118713,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/nutri_001.png",
+      "error": null
+    },
+    {
+      "id": "text_002",
+      "category": "poster_text",
+      "prompt": "A vibrant poster for BLACK FRIDAY SALE. The headline text says 'BLACK FRIDAY' in large bold letters. Below it says '50% OFF' in red. There are three colorful balloons floating above the text. The banner is red. There should be no watermarks anywhere on the poster.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "discount_text",
+          "type": "text",
+          "score": 0.0004464042107376138,
+          "passed": false
+        },
+        {
+          "id": "balloon_count",
+          "type": "count",
+          "score": 0.4430650921515792,
+          "passed": false
+        },
+        {
+          "id": "banner_color",
+          "type": "attribute",
+          "score": 0.42077653504122403,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/text_002.png",
+      "error": null
+    },
+    {
+      "id": "text_003",
+      "category": "poster_text",
+      "prompt": "A summer sale poster with 'SUMMER SALE' as the main headline. The text 'TODAY ONLY' appears at the bottom. There are two beach balls visible. The background banner is blue. No watermarks should be present.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.049787068367863944,
+          "passed": false
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 0.02732372244729257,
+          "passed": false
+        },
+        {
+          "id": "beach_ball_count",
+          "type": "count",
+          "score": 0.49154420357057693,
+          "passed": false
+        },
+        {
+          "id": "banner_color",
+          "type": "attribute",
+          "score": 0.4877664280418045,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/text_003.png",
+      "error": null
+    },
+    {
+      "id": "text_004",
+      "category": "poster_text",
+      "prompt": "A holiday sale poster featuring 'CHRISTMAS SALE' in large letters. The text 'UP TO 70% OFF' is displayed prominently. Four gift boxes are arranged around the text. The decorative ribbon is green. There should be no watermarks.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.34251885509304564,
+          "passed": false
+        },
+        {
+          "id": "discount_text",
+          "type": "text",
+          "score": 0.03138144571425708,
+          "passed": false
+        },
+        {
+          "id": "gift_box_count",
+          "type": "count",
+          "score": 0.4913141041452935,
+          "passed": false
+        },
+        {
+          "id": "ribbon_color",
+          "type": "attribute",
+          "score": 0.4188724708229885,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/text_004.png",
+      "error": null
+    },
+    {
+      "id": "text_005",
+      "category": "poster_text",
+      "prompt": "A flash sale poster with 'FLASH SALE' as the headline. The text 'LIMITED TIME' appears below. Three stars are scattered around the text. The accent color is yellow. No watermarks anywhere.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.0024787521766663585,
+          "passed": false
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 0.06392786120670757,
+          "passed": false
+        },
+        {
+          "id": "star_count",
+          "type": "count",
+          "score": 0.4439956641082833,
+          "passed": false
+        },
+        {
+          "id": "accent_color",
+          "type": "attribute",
+          "score": 0.5083188783959182,
+          "passed": true
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/text_005.png",
+      "error": null
+    },
+    {
+      "id": "text_006",
+      "category": "poster_text",
+      "prompt": "A grand opening poster displaying 'GRAND OPENING' in bold. The text 'SPECIAL DEALS' is shown at the bottom. Five confetti pieces are visible. The main color scheme is purple. Absolutely no watermarks.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.15784308913485165,
+          "passed": false
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 0.0004928111030866578,
+          "passed": false
+        },
+        {
+          "id": "confetti_count",
+          "type": "count",
+          "score": 0.4913913956951948,
+          "passed": false
+        },
+        {
+          "id": "color_scheme",
+          "type": "attribute",
+          "score": 0.6177436286839771,
+          "passed": true
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/text_006.png",
+      "error": null
+    },
+    {
+      "id": "nutri_002",
+      "category": "nutrition_label",
+      "prompt": "A sports drink bottle with a nutrition label. The label shows 'ENERGY DRINK' at the top. Nutrition facts: Serving Size 500 mL, Calories 120, Total Fat 0 g, Sodium 200 mg (9 percent DV), Total Carbohydrate 30 g, Protein 0 g. The sodium value should be consistent (200 mg equals 9 percent DV). There should be no sugar drink characteristics.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 0.0019304541362277093,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.16529888822158656,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.9035270092600376,
+          "passed": true
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.7796831130981445,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/nutri_002.png",
+      "error": null
+    },
+    {
+      "id": "nutri_003",
+      "category": "nutrition_label",
+      "prompt": "A protein shake bottle with nutrition label. Label header says 'PROTEIN SHAKE'. Facts: Serving Size 330 mL, Calories 150, Total Fat 2 g, Sodium 100 mg (4 percent DV), Total Carbohydrate 5 g, Protein 25 g. Sodium consistency: 100 mg = 4% DV. No sugar drink features.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 5.4964168820781806e-73,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.018315638888734186,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.6761743325317474,
+          "passed": true
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.8089294135570526,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/nutri_003.png",
+      "error": null
+    },
+    {
+      "id": "nutri_004",
+      "category": "nutrition_label",
+      "prompt": "A juice box with nutrition label showing 'ORANGE JUICE' at top. Nutrition: Serving Size 200 mL, Calories 90, Total Fat 0 g, Sodium 10 mg (0 percent DV), Total Carbohydrate 22 g, Protein 1 g. Sodium 10 mg = 0% DV. No sugar drink appearance.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 0.0019304541362277093,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 3.074879879586608e-09,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.8090588599443436,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/nutri_004.png",
+      "error": null
+    },
+    {
+      "id": "nutri_005",
+      "category": "nutrition_label",
+      "prompt": "A milk carton with nutrition label. Header reads 'WHOLE MILK'. Facts: Serving Size 240 mL, Calories 150, Total Fat 8 g, Sodium 120 mg (5 percent DV), Total Carbohydrate 12 g, Protein 8 g. Sodium consistency: 120 mg = 5% DV. Not a sugar drink.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 2.392604696866512e-28,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 0.6065306597126334,
+          "passed": true
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 0.6658661086826305,
+          "passed": true
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 0.36787944117144233,
+          "passed": false
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.8267649710178375,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/nutri_005.png",
+      "error": null
+    },
+    {
+      "id": "nutri_006",
+      "category": "nutrition_label",
+      "prompt": "A diet soda can with nutrition label. Top says 'DIET COLA'. Nutrition: Serving Size 355 mL, Calories 0, Total Fat 0 g, Sodium 40 mg (2 percent DV), Total Carbohydrate 0 g, Protein 0 g. Sodium 40 mg = 2% DV. No sugar drink features.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.16529888822158656,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.6761743325317475,
+          "passed": true
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.728874921798706,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/nutri_006.png",
+      "error": null
+    },
+    {
+      "id": "comp_002",
+      "category": "composition",
+      "prompt": "A photo of three red apples on a white plate. The apples are arranged in a row. There is no person in the image.",
+      "constraints": [
+        {
+          "id": "apple_count",
+          "type": "count",
+          "score": 0.6235350059281135,
+          "passed": true
+        },
+        {
+          "id": "apple_color",
+          "type": "attribute",
+          "score": 0.5432289096499004,
+          "passed": true
+        },
+        {
+          "id": "plate_color",
+          "type": "attribute",
+          "score": 0.4425204188945567,
+          "passed": false
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/comp_002.png",
+      "error": null
+    },
+    {
+      "id": "comp_003",
+      "category": "composition",
+      "prompt": "A photo of two empty wine glasses on a wooden table. The glasses are clear and empty. No person visible.",
+      "constraints": [
+        {
+          "id": "glass_count",
+          "type": "count",
+          "score": 0.5919896799647016,
+          "passed": true
+        },
+        {
+          "id": "glass_state",
+          "type": "state",
+          "score": 0.4986769587878025,
+          "passed": false
+        },
+        {
+          "id": "table_material",
+          "type": "attribute",
+          "score": 0.4601953726466219,
+          "passed": false
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/comp_003.png",
+      "error": null
+    },
+    {
+      "id": "comp_004",
+      "category": "composition",
+      "prompt": "A photo of four blue books stacked on a shelf. The books are all blue in color. There is no person in the frame.",
+      "constraints": [
+        {
+          "id": "book_count",
+          "type": "count",
+          "score": 0.49998524785042237,
+          "passed": false
+        },
+        {
+          "id": "book_color",
+          "type": "attribute",
+          "score": 0.6018588484993087,
+          "passed": true
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/comp_004.png",
+      "error": null
+    },
+    {
+      "id": "comp_005",
+      "category": "composition",
+      "prompt": "A photo of one broken ceramic plate on a marble counter. The plate is clearly broken. No people present.",
+      "constraints": [
+        {
+          "id": "plate_count",
+          "type": "count",
+          "score": 0.5923762628984437,
+          "passed": true
+        },
+        {
+          "id": "plate_state",
+          "type": "state",
+          "score": 0.7283176580406666,
+          "passed": true
+        },
+        {
+          "id": "counter_material",
+          "type": "attribute",
+          "score": 0.6023415062267574,
+          "passed": true
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/comp_005.png",
+      "error": null
+    },
+    {
+      "id": "comp_006",
+      "category": "composition",
+      "prompt": "A photo of five yellow bananas in a fruit bowl. The bananas are all yellow. The bowl is ceramic. Absolutely no person in the image.",
+      "constraints": [
+        {
+          "id": "banana_count",
+          "type": "count",
+          "score": 0.48855996146944886,
+          "passed": false
+        },
+        {
+          "id": "banana_color",
+          "type": "attribute",
+          "score": 0.4873392233718461,
+          "passed": false
+        },
+        {
+          "id": "bowl_material",
+          "type": "attribute",
+          "score": 0.49796755241221136,
+          "passed": false
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/comp_006.png",
+      "error": null
+    },
+    {
+      "id": "advanced_001",
+      "category": "advanced",
+      "prompt": "A product mockup with the text 'Eco Clean' displayed prominently. A green bottle is in the center. Two leaves are positioned beside the bottle. The bottle is empty. There are no people in the image.",
+      "constraints": [
+        {
+          "id": "product_text",
+          "type": "text",
+          "score": 0.035673993347252395,
+          "passed": false
+        },
+        {
+          "id": "bottle_color",
+          "type": "attribute",
+          "score": 0.571176311842303,
+          "passed": true
+        },
+        {
+          "id": "leaf_count",
+          "type": "count",
+          "score": 0.4169925140456294,
+          "passed": false
+        },
+        {
+          "id": "bottle_state",
+          "type": "state",
+          "score": 0.4841070683780651,
+          "passed": false
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/advanced_001.png",
+      "error": null
+    },
+    {
+      "id": "advanced_002",
+      "category": "advanced",
+      "prompt": "A storefront sign showing 'OPEN 24/7' in large letters. Three red flags are hanging above the sign. The sign background is white. No watermarks or people visible.",
+      "constraints": [
+        {
+          "id": "sign_text",
+          "type": "text",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "flag_count",
+          "type": "count",
+          "score": 0.38333409490982356,
+          "passed": false
+        },
+        {
+          "id": "flag_color",
+          "type": "attribute",
+          "score": 0.47927468104885773,
+          "passed": false
+        },
+        {
+          "id": "sign_color",
+          "type": "attribute",
+          "score": 0.48391873163190346,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/advanced_002.png",
+      "error": null
+    },
+    {
+      "id": "advanced_003",
+      "category": "advanced",
+      "prompt": "A label on a jar reading 'ORGANIC HONEY'. The jar is glass and transparent. Four bees are illustrated around the label. The jar is full. No people in the image.",
+      "constraints": [
+        {
+          "id": "label_text",
+          "type": "text",
+          "score": 0.07898782609432885,
+          "passed": false
+        },
+        {
+          "id": "jar_material",
+          "type": "attribute",
+          "score": 0.5292126650580622,
+          "passed": true
+        },
+        {
+          "id": "bee_count",
+          "type": "count",
+          "score": 0.39544985014288075,
+          "passed": false
+        },
+        {
+          "id": "jar_state",
+          "type": "state",
+          "score": 0.5330600784652192,
+          "passed": true
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/advanced_003.png",
+      "error": null
+    },
+    {
+      "id": "advanced_004",
+      "category": "advanced",
+      "prompt": "A menu board displaying 'DAILY SPECIAL' at the top. Below it shows '$12.99'. Two chef hats are drawn beside the text. The board is black. No watermarks or people.",
+      "constraints": [
+        {
+          "id": "menu_text",
+          "type": "text",
+          "score": 0.15784308913485165,
+          "passed": false
+        },
+        {
+          "id": "price_text",
+          "type": "text",
+          "score": 0.0009118819655545162,
+          "passed": false
+        },
+        {
+          "id": "hat_count",
+          "type": "count",
+          "score": 0.4363777721077562,
+          "passed": false
+        },
+        {
+          "id": "board_color",
+          "type": "attribute",
+          "score": 0.6341760142187279,
+          "passed": true
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/advanced_004.png",
+      "error": null
+    },
+    {
+      "id": "advanced_005",
+      "category": "advanced",
+      "prompt": "A product package with 'PREMIUM QUALITY' text. The package is gold colored. Three stars are printed on it. The package is sealed. There are no people or watermarks.",
+      "constraints": [
+        {
+          "id": "package_text",
+          "type": "text",
+          "score": 6.772873649085378e-05,
+          "passed": false
+        },
+        {
+          "id": "package_color",
+          "type": "attribute",
+          "score": 0.7307308835033881,
+          "passed": true
+        },
+        {
+          "id": "star_count",
+          "type": "count",
+          "score": 0.3850035710964455,
+          "passed": false
+        },
+        {
+          "id": "package_state",
+          "type": "state",
+          "score": 0.4786401532457793,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "no_person",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/advanced_005.png",
+      "error": null
+    },
+    {
+      "id": "csp_01_numbers_row",
+      "category": "csp_demo",
+      "prompt": "Create a simple white poster with four labeled numbers: A, B, C, and D. Each label should appear as 'A: <number>', 'B: <number>', 'C: <number>', and 'D: <number>'. Ensure that A < B < C < D and that all four values are distinct.",
+      "constraints": [
+        {
+          "id": "rel_A_B",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "rel_B_C",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "rel_C_D",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "sorted_all",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "uniq_all",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_01_numbers_row.png",
+      "error": null
+    },
+    {
+      "id": "csp_02_sum_equals",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing four values labeled 'A: <number>', 'B: <number>', 'C: <number>', and 'Total: <number>'. Ensure that A + B + C equals Total.",
+      "constraints": [
+        {
+          "id": "sum_ABC_Total",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_02_sum_equals.png",
+      "error": null
+    },
+    {
+      "id": "csp_03_descending_order",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster with three numbers labeled 'X: <number>', 'Y: <number>', and 'Z: <number>'. The numbers should be in strictly descending order (X > Y > Z).",
+      "constraints": [
+        {
+          "id": "sorted_desc",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "rel_X_Y",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "rel_Y_Z",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_03_descending_order.png",
+      "error": null
+    },
+    {
+      "id": "csp_04_unique_values",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster displaying five distinct numbers labeled 'P: <number>', 'Q: <number>', 'R: <number>', 'S: <number>', and 'T: <number>'. All five numbers must be different from each other.",
+      "constraints": [
+        {
+          "id": "all_unique",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_04_unique_values.png",
+      "error": null
+    },
+    {
+      "id": "csp_05_equation_check",
+      "category": "csp_demo",
+      "prompt": "Create a simple math equation poster showing 'M: <number>', 'N: <number>', 'O: <number>', and 'Sum: <number>'. Verify that M + N + O equals Sum.",
+      "constraints": [
+        {
+          "id": "sum_MNO_Sum",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_05_equation_check.png",
+      "error": null
+    },
+    {
+      "id": "csp_06_range_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster with a number labeled 'Score: <number>'. The score must be between 50 and 100 (inclusive).",
+      "constraints": [
+        {
+          "id": "score_range",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_06_range_constraint.png",
+      "error": null
+    },
+    {
+      "id": "csp_07_equals_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster showing three values labeled 'A: <number>', 'B: <number>', and 'C: <number>'. All three values must be equal to each other.",
+      "constraints": [
+        {
+          "id": "all_equal",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_07_equals_constraint.png",
+      "error": null
+    },
+    {
+      "id": "csp_08_product_equals",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing 'Length: <number>', 'Width: <number>', and 'Area: <number>'. Ensure that Length \u00d7 Width equals Area.",
+      "constraints": [
+        {
+          "id": "area_product",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_08_product_equals.png",
+      "error": null
+    },
+    {
+      "id": "csp_09_difference_equals",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing 'Total: <number>', 'Used: <number>', and 'Remaining: <number>'. Ensure that Total - Used equals Remaining.",
+      "constraints": [
+        {
+          "id": "diff_total_used",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_09_difference_equals.png",
+      "error": null
+    },
+    {
+      "id": "csp_10_ratio_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple ratio poster showing 'Numerator: <number>', 'Denominator: <number>', and 'Ratio: <number>'. Ensure that Numerator \u00f7 Denominator equals Ratio.",
+      "constraints": [
+        {
+          "id": "ratio_check",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_10_ratio_constraint.png",
+      "error": null
+    },
+    {
+      "id": "csp_11_min_max_constraints",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster showing 'Value: <number>'. The value must be at least 10 and at most 50.",
+      "constraints": [
+        {
+          "id": "min_val",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "max_val",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_11_min_max_constraints.png",
+      "error": null
+    },
+    {
+      "id": "csp_12_chain_relation",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster with four numbers labeled 'W: <number>', 'X: <number>', 'Y: <number>', and 'Z: <number>'. They must form a strict increasing chain: W < X < Y < Z.",
+      "constraints": [
+        {
+          "id": "chain_inc",
+          "type": "csp",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_12_chain_relation.png",
+      "error": null
+    },
+    {
+      "id": "csp_13_modulo_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing 'Dividend: <number>', 'Divisor: <number>', and 'Remainder: <number>'. Ensure that Dividend mod Divisor equals Remainder.",
+      "constraints": [
+        {
+          "id": "modulo_check",
+          "type": "csp",
+          "score": 0.0,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/csp_13_modulo_constraint.png",
+      "error": null
+    },
+    {
+      "id": "char_001",
+      "category": "character_consistency",
+      "prompt": "A photo of a young woman with long brown hair wearing a red jacket standing in a park. She has a friendly smile and is holding a coffee cup.",
+      "constraints": [],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/char_001.png",
+      "error": null
+    },
+    {
+      "id": "char_002",
+      "category": "character_consistency",
+      "prompt": "The same woman from the previous photo, now sitting at a cafe table. She still has long brown hair and is wearing the same red jacket. She is reading a book.",
+      "constraints": [
+        {
+          "id": "character_consistency_2",
+          "type": "character_consistency",
+          "score": 0.9754,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/char_002.png",
+      "error": null
+    },
+    {
+      "id": "char_003",
+      "category": "character_consistency",
+      "prompt": "The same woman walking down a city street. She maintains her long brown hair and red jacket. She is carrying a shopping bag.",
+      "constraints": [
+        {
+          "id": "character_consistency_3",
+          "type": "character_consistency",
+          "score": 0.9929,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/char_003.png",
+      "error": null
+    },
+    {
+      "id": "char_004",
+      "category": "character_consistency",
+      "prompt": "A cartoon character: a blue robot with round eyes and a yellow antenna. The robot has a friendly expression and is waving.",
+      "constraints": [],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/char_004.png",
+      "error": null
+    },
+    {
+      "id": "char_005",
+      "category": "character_consistency",
+      "prompt": "The same blue robot character in a different scene, standing in a garden. It still has round eyes, yellow antenna, and a friendly expression.",
+      "constraints": [
+        {
+          "id": "character_consistency_cartoon_2",
+          "type": "character_consistency",
+          "score": 0.9796,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/char_005.png",
+      "error": null
+    },
+    {
+      "id": "char_006",
+      "category": "character_consistency",
+      "prompt": "The same blue robot character in a space setting. It maintains its blue color, round eyes, yellow antenna, and friendly appearance.",
+      "constraints": [
+        {
+          "id": "character_consistency_cartoon_3",
+          "type": "character_consistency",
+          "score": 0.9688,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/char_006.png",
+      "error": null
+    },
+    {
+      "id": "sketch_001",
+      "category": "sketch_to_render",
+      "prompt": "A detailed 3D render of a modern house with a triangular roof, two windows, and a front door. The house should be white with a red roof. There is a tree next to the house.",
+      "constraints": [
+        {
+          "id": "sketch_to_render_1",
+          "type": "sketch_to_render",
+          "score": 0.5591,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/sketch_001.png",
+      "error": null
+    },
+    {
+      "id": "sketch_002",
+      "category": "sketch_to_render",
+      "prompt": "A photorealistic render of a vintage car from a side view. The car has rounded edges, two doors, and four wheels. The car is blue with chrome details.",
+      "constraints": [
+        {
+          "id": "sketch_to_render_2",
+          "type": "sketch_to_render",
+          "score": 0.4666,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/sketch_002.png",
+      "error": null
+    },
+    {
+      "id": "sketch_003",
+      "category": "sketch_to_render",
+      "prompt": "A detailed 3D render of a coffee cup on a wooden table. The cup has a handle and steam rising from it. The scene has soft lighting.",
+      "constraints": [
+        {
+          "id": "sketch_to_render_3",
+          "type": "sketch_to_render",
+          "score": 0.4031,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/sketch_003.png",
+      "error": null
+    },
+    {
+      "id": "sketch_004",
+      "category": "sketch_to_render",
+      "prompt": "A stylized render of a cat sitting on a windowsill. The cat has pointy ears, whiskers, and a long tail. The background shows a city skyline.",
+      "constraints": [
+        {
+          "id": "sketch_to_render_4",
+          "type": "sketch_to_render",
+          "score": 0.4845,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/sketch_004.png",
+      "error": null
+    },
+    {
+      "id": "sketch_005",
+      "category": "sketch_to_render",
+      "prompt": "A realistic render of a mountain landscape at sunset. There are pine trees in the foreground, snow-capped peaks in the background, and orange clouds in the sky.",
+      "constraints": [
+        {
+          "id": "sketch_to_render_5",
+          "type": "sketch_to_render",
+          "score": 0.3427,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_openrouter/sketch_005.png",
+      "error": null
+    }
+  ],
+  "summary": {
+    "total_prompts": 47,
+    "total_constraints": 172,
+    "passed_constraints": 94,
+    "failed_constraints": 78,
+    "errors": 0,
+    "pass_rate": 0.5465116279069767,
+    "by_type": {
+      "count": {
+        "total": 17,
+        "passed": 3,
+        "failed": 14,
+        "pass_rate": 0.17647058823529413,
+        "avg_score": 0.47574668988653385,
+        "min_score": 0.38333409490982356,
+        "max_score": 0.6235350059281135
+      },
+      "attribute": {
+        "total": 21,
+        "passed": 9,
+        "failed": 12,
+        "pass_rate": 0.42857142857142855,
+        "avg_score": 0.5167885198827913,
+        "min_score": 0.36655124729927574,
+        "max_score": 0.7307308835033881
+      },
+      "state": {
+        "total": 6,
+        "passed": 2,
+        "failed": 4,
+        "pass_rate": 0.3333333333333333,
+        "avg_score": 0.5368071054775457,
+        "min_score": 0.4786401532457793,
+        "max_score": 0.7283176580406666
+      },
+      "spatial": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "pass_rate": 1.0,
+        "avg_score": 1.0,
+        "min_score": 1.0,
+        "max_score": 1.0
+      },
+      "text": {
+        "total": 25,
+        "passed": 3,
+        "failed": 22,
+        "pass_rate": 0.12,
+        "avg_score": 0.14911475403506588,
+        "min_score": 0.0,
+        "max_score": 1.0
+      },
+      "table_slot": {
+        "total": 42,
+        "passed": 23,
+        "failed": 19,
+        "pass_rate": 0.5476190476190477,
+        "avg_score": 0.5512973456236924,
+        "min_score": 0.0,
+        "max_score": 1.0
+      },
+      "logic": {
+        "total": 6,
+        "passed": 4,
+        "failed": 2,
+        "pass_rate": 0.6666666666666666,
+        "avg_score": 0.5043761786526131,
+        "min_score": 0.0,
+        "max_score": 0.9035270092600376
+      },
+      "negative": {
+        "total": 24,
+        "passed": 24,
+        "failed": 0,
+        "pass_rate": 1.0,
+        "avg_score": 0.9472235596428314,
+        "min_score": 0.728874921798706,
+        "max_score": 1.0
+      },
+      "csp": {
+        "total": 20,
+        "passed": 19,
+        "failed": 1,
+        "pass_rate": 0.95,
+        "avg_score": 0.95,
+        "min_score": 0.0,
+        "max_score": 1.0
+      },
+      "character_consistency": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "pass_rate": 1.0,
+        "avg_score": 0.979175,
+        "min_score": 0.9688,
+        "max_score": 0.9929
+      },
+      "sketch_to_render": {
+        "total": 5,
+        "passed": 1,
+        "failed": 4,
+        "pass_rate": 0.2,
+        "avg_score": 0.45120000000000005,
+        "min_score": 0.3427,
+        "max_score": 0.5591
+      }
+    },
+    "by_category": {
+      "composition": {
+        "total": 27,
+        "passed": 14,
+        "failed": 13,
+        "pass_rate": 0.5185185185185185,
+        "avg_score": 0.6446241662267882
+      },
+      "poster_text": {
+        "total": 28,
+        "passed": 9,
+        "failed": 19,
+        "pass_rate": 0.32142857142857145,
+        "avg_score": 0.4380270978433002
+      },
+      "nutrition_label": {
+        "total": 60,
+        "passed": 34,
+        "failed": 26,
+        "pass_rate": 0.5666666666666667,
+        "avg_score": 0.5319754168696886
+      },
+      "advanced": {
+        "total": 28,
+        "passed": 13,
+        "failed": 15,
+        "pass_rate": 0.4642857142857143,
+        "avg_score": 0.5433906753204757
+      },
+      "csp_demo": {
+        "total": 20,
+        "passed": 19,
+        "failed": 1,
+        "pass_rate": 0.95,
+        "avg_score": 0.95
+      },
+      "character_consistency": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "pass_rate": 1.0,
+        "avg_score": 0.979175
+      },
+      "sketch_to_render": {
+        "total": 5,
+        "passed": 1,
+        "failed": 4,
+        "pass_rate": 0.2,
+        "avg_score": 0.45120000000000005
+      }
+    }
+  }
+}
