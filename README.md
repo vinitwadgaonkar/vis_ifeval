@@ -13,7 +13,7 @@ The Visual Instruction Following Evaluation Benchmark (vis_ifeval) is a systemat
 
 The benchmark includes 9 specialized evaluators, 13 CSP constraint types, and supports evaluation of leading models including OpenAI DALL-E 3, GPT Image 1, and Google Gemini.
 
-## Features
+## Key Features
 
 - **Multi-Model Support**: Evaluate OpenAI DALL-E 3, GPT Image 1, Google Gemini, and custom models
 - **Comprehensive Evaluators**: 9 evaluator types covering text, composition, spatial relationships, logic, and more
@@ -21,6 +21,73 @@ The benchmark includes 9 specialized evaluators, 13 CSP constraint types, and su
 - **Constraint Satisfaction**: 13 CSP constraint types for rigorous evaluation
 - **Automated Pipeline**: End-to-end evaluation from image generation to metric aggregation
 - **Rich Visualizations**: Performance heatmaps, radar charts, and detailed analysis reports
+
+## Architecture
+
+```mermaid
+graph TB
+    A[Prompt Input] --> B[Image Generation Model]
+    B --> C[Generated Image]
+    C --> D[Evaluator Registry]
+    D --> E1[CSP Evaluator]
+    D --> E2[Text Evaluator]
+    D --> E3[Label Evaluator]
+    D --> E4[Composition Evaluator]
+    D --> E5[Spatial Evaluator]
+    D --> E6[Logic Evaluator]
+    D --> E7[Negative Evaluator]
+    D --> E8[Character Consistency]
+    D --> E9[Sketch-to-Render]
+    E1 --> F[DeepSeek OCR]
+    E2 --> F
+    E3 --> F
+    E4 --> G[CLIP Model]
+    E5 --> H[GroundingDINO]
+    E8 --> I[InsightFace]
+    E9 --> J[SSIM + Edge Detection]
+    F --> K[Score Aggregation]
+    G --> K
+    H --> K
+    I --> K
+    J --> K
+    K --> L[Results & Visualizations]
+```
+
+## Evaluation Pipeline
+
+```mermaid
+flowchart LR
+    A[Load Prompts] --> B[Generate Images]
+    B --> C[Extract Text via OCR]
+    B --> D[Detect Objects]
+    B --> E[Analyze Composition]
+    C --> F[Evaluate Constraints]
+    D --> F
+    E --> F
+    F --> G[Calculate Scores]
+    G --> H[Aggregate Metrics]
+    H --> I[Generate Reports]
+    I --> J[Visualizations]
+```
+
+## Evaluator Types
+
+```mermaid
+mindmap
+  root((Evaluators))
+    Text-Based
+      CSP Evaluator
+      Text Evaluator
+      Label Evaluator
+      Logic Evaluator
+    Vision-Based
+      Composition Evaluator
+      Spatial Evaluator
+      Negative Evaluator
+    Advanced
+      Character Consistency
+      Sketch-to-Render
+```
 
 ## Installation
 
