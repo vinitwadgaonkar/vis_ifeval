@@ -213,6 +213,20 @@ To use DeepSeek OCR (default):
 export VIS_IFEVAL_OCR_BACKEND='deepseek'
 ```
 
+## OCR Backend
+
+The benchmark uses **DeepSeek-OCR** (`deepseek-ai/DeepSeek-OCR`) as the primary OCR backend for all text extraction tasks. DeepSeek-OCR provides:
+
+- High accuracy text extraction
+- Automatic model download from Hugging Face
+- GPU acceleration when available
+- Automatic fallback to Tesseract if DeepSeek fails
+
+To use DeepSeek OCR (default):
+```bash
+export VIS_IFEVAL_OCR_BACKEND='deepseek'
+```
+
 ## Prompt Format
 
 Prompts are stored in JSONL format. Each line is a JSON object:
