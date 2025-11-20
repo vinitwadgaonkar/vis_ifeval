@@ -6,7 +6,7 @@ A comprehensive benchmark for evaluating visual instruction following capabiliti
 
 - **Multi-Model Support**: Evaluate OpenAI DALL-E 3, GPT Image 1, Google Gemini, and custom models
 - **Comprehensive Evaluators**: 9 evaluator types covering text, composition, spatial relationships, logic, and more
-- **Advanced OCR**: DeepSeek-OCR as primary OCR backend for high-accuracy text extraction (Tesseract as fallback)
+- **Advanced OCR**: DeepSeek-OCR as primary OCR backend for high-accuracy text extraction (Tesseract as automatic fallback)
 - **Constraint Satisfaction**: 13 CSP constraint types for rigorous evaluation
 - **Automated Pipeline**: End-to-end evaluation from image generation to metric aggregation
 - **Rich Visualizations**: Performance heatmaps, radar charts, and detailed analysis reports
@@ -35,16 +35,18 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### System Dependencies
+### OCR Backend
 
-**DeepSeek OCR** is the primary OCR backend and will be automatically downloaded from Hugging Face on first use.
+**DeepSeek-OCR** is the primary OCR backend and will be automatically downloaded from Hugging Face on first use. No manual installation required.
 
-**Tesseract OCR** (optional fallback - only needed if DeepSeek fails):
+**Tesseract OCR** is used as an automatic fallback if DeepSeek fails. Installation is optional but recommended:
 - macOS: `brew install tesseract`
 - Ubuntu/Debian: `sudo apt-get install tesseract-ocr`
 - Windows: Download from [GitHub](https://github.com/UB-Mannheim/tesseract/wiki)
 
-**ML Dependencies** (automatically installed, but listed for reference):
+### Optional ML Dependencies
+
+For advanced evaluators (automatically installed via requirements.txt):
 ```bash
 pip install torch torchvision torchaudio
 pip install groundingdino-py insightface onnxruntime ultralytics
@@ -59,7 +61,7 @@ Set environment variables for API-based models:
 ```bash
 export OPENAI_API_KEY='your-openai-api-key'
 export OPENROUTER_API_KEY='your-openrouter-api-key'  # For Gemini models
-export VIS_IFEVAL_OCR_BACKEND='deepseek'  # Use DeepSeek OCR
+export VIS_IFEVAL_OCR_BACKEND='deepseek'  # Use DeepSeek OCR (default)
 ```
 
 Or create a `.env` file:
@@ -104,7 +106,7 @@ model = OpenAIModel(model="gpt-image-1", size="1024x1024", quality="high")
 # Generate image
 image = model.generate("A red cube on top of a blue sphere")
 
-# Initialize evaluators
+# Initialize evaluators with DeepSeek OCR
 ocr_backend = build_text_backend("deepseek")
 registry = EvaluatorRegistry(ocr_backend=ocr_backend)
 
@@ -188,14 +190,28 @@ vis_ifeval/
 The benchmark includes 9 evaluator types:
 
 1. **CSP Evaluator**: Constraint satisfaction (numeric relations, sums, ranges, etc.)
-2. **Text Evaluator**: Text rendering accuracy using OCR
-3. **Label Evaluator**: Nutrition label parsing and validation
+2. **Text Evaluator**: Text rendering accuracy using DeepSeek-OCR
+3. **Label Evaluator**: Nutrition label parsing and validation using DeepSeek-OCR
 4. **Composition Evaluator**: Object counts, attributes, and states (CLIP-based)
 5. **Spatial Evaluator**: Spatial relationships using GroundingDINO
 6. **Logic Evaluator**: Logical consistency checks
 7. **Negative Evaluator**: Absence checks (CLIP-based)
 8. **Character Consistency Evaluator**: Face recognition and consistency
 9. **Sketch-to-Render Evaluator**: Structural fidelity and style matching
+
+## OCR Backend
+
+The benchmark uses **DeepSeek-OCR** (`deepseek-ai/DeepSeek-OCR`) as the primary OCR backend for all text extraction tasks. DeepSeek-OCR provides:
+
+- High accuracy text extraction
+- Automatic model download from Hugging Face
+- GPU acceleration when available
+- Automatic fallback to Tesseract if DeepSeek fails
+
+To use DeepSeek OCR (default):
+```bash
+export VIS_IFEVAL_OCR_BACKEND='deepseek'
+```
 
 ## Prompt Format
 
