@@ -1,0 +1,546 @@
+================================================================================
+VIF-EVAL BENCHMARK - EVALUATION METRICS
+Complete List of All Metrics Used
+================================================================================
+
+Date: November 2025
+Benchmark: Visual Instruction Following Evaluation (VIF-Eval)
+
+================================================================================
+1. OVERVIEW OF METRIC CATEGORIES
+================================================================================
+
+The VIF-Eval benchmark uses three main categories of evaluation metrics:
+
+1. CLIP-Based Metrics
+2. OCR-Based Metrics  
+3. Computer Vision Metrics
+
+All scores are normalized to [0, 1] range with a pass threshold of 0.5.
+
+
+================================================================================
+2. CLIP-BASED METRICS
+================================================================================
+
+2.1 Composition Scoring (CLIP Similarity)
+------------------------------------------
+Purpose: Evaluate if generated images contain objects with correct attributes,
+         counts, and states as specified in prompts.
+
+Method:
+  - Uses CLIP (Contrastive Language-Image Pre-training) model
+  - Computes similarity between image and text descriptions
+  - Compares target attribute/object against alternatives
+  - Uses margin-based scoring for discrimination
+
+Applications:
+  - Count Constraints: Verify correct number of objects
+  - Attribute Constraints: Verify object attributes (color, size, material)
+  - State Constraints: Verify object states (tipped over, empty, etc.)
+  - Negative Constraints: Inverse CLIP similarity for forbidden concepts
+
+Scoring Function:
+  - Count: Margin-based logistic scoring comparing target count to alternatives
+  - Attribute: CLIP similarity margin between attribute and plain object
+  - State: CLIP similarity for state descriptions
+  - Negative: Inverse CLIP score (higher score = better avoidance)
+
+
+2.2 Prompt Adherence (CLIP Score)
+----------------------------------
+Purpose: Measure overall alignment between prompt and generated image.
+
+Method:
+  - Computes CLIP embedding similarity between full prompt and image
+  - Provides overall prompt-image alignment score
+
+Usage: General quality assessment of prompt following
+
+
+================================================================================
+3. OCR-BASED METRICS
+================================================================================
+
+3.1 Text Accuracy (Character Error Rate - CER)
+-----------------------------------------------
+Purpose: Evaluate accuracy of text rendering in generated images.
+
+Method:
+  - Uses DeepSeek-OCR (advanced OCR model) for text extraction
+  - Fallback to Tesseract OCR if DeepSeek unavailable
+  - Computes Character Error Rate (CER) between expected and extracted text
+  - Applies exponential decay function for scoring
+
+Scoring Function:
+  Score = exp(-3.0 × CER)
+  - CER = 0 (perfect match) → Score = 1.0
+  - CER increases → Score decreases exponentially
+  - Pass threshold: Score > 0.5
+
+Applications:
+  - Poster text rendering
+  - Label text accuracy
+  - Banner text verification
+
+
+3.2 Label Parsing (Field Extraction Accuracy)
+----------------------------------------------
+Purpose: Extract and validate structured data from nutrition labels and tables.
+
+Method:
+  - OCR extraction of text from label regions
+  - Regex-based parsing for specific fields:
+    * Serving Size
+    * Calories
+    * Total Fat
+    * Sodium
+    * Total Carbohydrate
+    * Protein
+    * Percent Daily Value (%DV)
+  - Field-by-field validation against expected values
+
+Scoring:
+  - Binary validation per field (1.0 if correct, 0.0 if incorrect)
+  - Average score across all fields for overall label accuracy
+
+Applications:
+  - Nutrition label evaluation
+  - Table slot constraints
+  - Structured data validation
+
+
+3.3 CSP Validation (Numeric Value Extraction)
+----------------------------------------------
+Purpose: Extract numeric values and validate mathematical constraints.
+
+Method:
+  - OCR extraction of numbers from images
+  - Parsing of numeric relationships:
+    * Sum equals (A + B = C)
+    * Difference equals (A - B = C)
+    * Product equals (A × B = C)
+    * Ratio constraints (A / B = C)
+    * Range constraints (min ≤ x ≤ max)
+    * Modulo constraints (A mod B = C)
+  - Mathematical validation of constraints
+
+Scoring:
+  - Binary satisfaction: 1.0 if constraint satisfied, 0.0 otherwise
+  - Relative error-based scoring for approximate matches
+
+Applications:
+  - Constraint Satisfaction Problems (CSP)
+  - Mathematical relationship validation
+  - Numeric data table verification
+
+
+================================================================================
+4. COMPUTER VISION METRICS
+================================================================================
+
+4.1 SSIM (Structural Similarity Index Measure)
+-----------------------------------------------
+Purpose: Measure structural similarity between images (for sketch-to-render tasks).
+
+Method:
+  - Computes SSIM between reference sketch and generated render
+  - Measures luminance, contrast, and structure similarity
+  - Range: [0, 1] where 1.0 = identical images
+
+Applications:
+  - Sketch-to-render evaluation
+  - Structural fidelity assessment
+
+
+4.2 Edge Alignment (Intersection over Union - IoU)
+---------------------------------------------------
+Purpose: Evaluate alignment of structural edges between sketch and render.
+
+Method:
+  - Applies Canny edge detection or HED (Holistically-Nested Edge Detection)
+  - Computes edge maps for both images
+  - Calculates Intersection over Union (IoU) of edge maps
+  - Measures structural preservation
+
+Scoring:
+  - IoU score normalized to [0, 1]
+  - Higher score = better edge alignment
+
+Applications:
+  - Sketch-to-render tasks
+  - Structural fidelity evaluation
+
+
+4.3 Object Detection (GroundingDINO)
+-------------------------------------
+Purpose: Detect and localize objects for spatial relationship validation.
+
+Method:
+  - Uses GroundingDINO model for object detection
+  - Generates bounding boxes for specified objects
+  - Validates spatial relationships (left, right, above, below, etc.)
+  - Computes bounding box relationships
+
+Scoring:
+  - Binary validation: 1.0 if spatial relationship correct, 0.0 otherwise
+  - Based on bounding box positions and relationships
+
+Applications:
+  - Spatial constraint evaluation
+  - Object relationship validation
+  - Composition verification
+
+
+4.4 Face Recognition (InsightFace/ArcFace)
+-------------------------------------------
+Purpose: Verify character consistency across multiple scenes.
+
+Method:
+  - Uses InsightFace or ArcFace for face recognition
+  - Extracts face embeddings from images
+  - Computes cosine similarity between face embeddings
+  - Validates if same character appears across scenes
+
+Scoring:
+  - Face similarity score: cosine similarity of embeddings [0, 1]
+  - Higher score = more similar faces (same person)
+
+Applications:
+  - Character consistency evaluation
+  - Identity preservation across scenes
+
+
+4.5 Character Detection (YOLOv8/GroundingDINO)
+-----------------------------------------------
+Purpose: Detect and count characters in images.
+
+Method:
+  - Uses YOLOv8 or GroundingDINO for character/object detection
+  - Counts detected instances
+  - Validates consistency of character appearance
+
+Scoring:
+  - Detection consistency score
+  - Count accuracy validation
+
+Applications:
+  - Character consistency evaluation
+  - Object counting (alternative to CLIP-based counting)
+
+
+4.6 Texture Analysis (Gabor Filters)
+-------------------------------------
+Purpose: Analyze texture richness and detail level in rendered images.
+
+Method:
+  - Applies Gabor filters for texture analysis
+  - Measures texture complexity and detail
+  - Compares texture richness between sketch and render
+
+Scoring:
+  - Texture richness score [0, 1]
+  - Higher score = more detailed texture
+
+Applications:
+  - Sketch-to-render evaluation
+  - Detail level assessment
+
+
+================================================================================
+5. CONSTRAINT-SPECIFIC METRICS
+================================================================================
+
+5.1 Count Constraints
+---------------------
+Metric: Margin-based Logistic Scoring
+Method:
+  - CLIP similarity for target count vs. alternative counts
+  - Margin = similarity(target) - max(similarity(alternatives))
+  - Logistic function: score = 1 / (1 + exp(-margin))
+  - Pass threshold: score > 0.5
+
+Example: "three blue mugs" → Compare "three blue mugs" vs "two blue mugs", 
+         "four blue mugs", etc.
+
+
+5.2 Attribute Constraints
+-------------------------
+Metric: CLIP Similarity Margin
+Method:
+  - CLIP similarity for attribute+object vs. plain object
+  - Margin = similarity(attribute+object) - similarity(object)
+  - Normalized to [0, 1] range
+  - Pass threshold: score > 0.5
+
+Example: "blue mugs" → Compare "blue mugs" vs "mugs"
+
+
+5.3 State Constraints
+---------------------
+Metric: CLIP Similarity
+Method:
+  - CLIP similarity for state description
+  - Direct similarity score [0, 1]
+  - Pass threshold: score > 0.5
+
+Example: "tipped over mug" → CLIP similarity for "tipped over mug"
+
+
+5.4 Text Constraints
+--------------------
+Metric: Character Error Rate with Exponential Decay
+Method:
+  - OCR extraction of text
+  - CER = (substitutions + insertions + deletions) / length(expected)
+  - Score = exp(-3.0 × CER)
+  - Pass threshold: score > 0.5
+
+Example: Expected "SUMMER SALE" → OCR extracts text → Compute CER → Score
+
+
+5.5 CSP Constraints
+-------------------
+Metric: Binary Satisfaction or Relative Error
+Method:
+  - OCR extraction of numeric values
+  - Mathematical validation of constraint
+  - Binary: 1.0 if satisfied, 0.0 if not
+  - Or relative error: 1.0 - min(1.0, |actual - expected| / expected)
+
+Example: "A + B = C" → Extract A, B, C → Validate A + B == C
+
+
+5.6 Spatial Constraints
+-----------------------
+Metric: Binary Bounding Box Validation
+Method:
+  - Object detection to get bounding boxes
+  - Validate spatial relationship (left, right, above, below)
+  - Binary: 1.0 if relationship correct, 0.0 otherwise
+
+Example: "largest mug on left" → Detect mugs → Find largest → Check position
+
+
+5.7 Negative Constraints
+------------------------
+Metric: Inverse CLIP Similarity
+Method:
+  - CLIP similarity for forbidden concept
+  - Inverse score: 1.0 - similarity(forbidden)
+  - Higher score = better avoidance
+  - Pass threshold: score > 0.5
+
+Example: "no watermark" → CLIP similarity for "watermark" → Inverse score
+
+
+5.8 Logic Constraints
+---------------------
+Metric: Field Consistency Validation
+Method:
+  - OCR extraction of related fields
+  - Validation of logical relationships
+  - Binary or consistency score
+
+Example: "sodium 50mg = 2% DV" → Extract both values → Validate consistency
+
+
+5.9 Table Slot Constraints
+--------------------------
+Metric: Field Extraction Accuracy
+Method:
+  - OCR extraction of table fields
+  - Field-by-field validation
+  - Average score across all fields
+
+Example: Nutrition label → Extract all fields → Validate each field
+
+
+5.10 Character Consistency Constraints
+--------------------------------------
+Metric: Multi-Component Score
+Method:
+  - Face similarity (InsightFace): cosine similarity of embeddings
+  - Detection consistency (YOLOv8): character detection across scenes
+  - Attribute consistency (CLIP): clothing, appearance verification
+  - Average of all three components
+
+Scoring:
+  Score = (face_similarity + detection_consistency + attribute_consistency) / 3
+  Pass threshold: score > 0.5
+
+Example: Same character in 3 scenes → Face recognition + Detection + Attributes
+
+
+5.11 Sketch-to-Render Constraints
+---------------------------------
+Metric: Multi-Component Score
+Method:
+  - SSIM: Structural similarity (weight: high)
+  - Edge alignment: IoU of edge maps (weight: high)
+  - CLIP score: Prompt adherence (weight: medium)
+  - Texture analysis: Gabor filters (weight: low)
+  - Weighted average of all components
+
+Scoring:
+  Score = w1×SSIM + w2×Edge_IoU + w3×CLIP + w4×Texture
+  Pass threshold: score > 0.5
+
+Example: Sketch → Render → Compare structure, edges, prompt, texture
+
+
+================================================================================
+6. AGGREGATION METRICS
+================================================================================
+
+6.1 Pass Rate
+-------------
+Definition: Percentage of constraints with score > 0.5
+Formula: (Number of passed constraints / Total constraints) × 100%
+Usage: Overall performance indicator
+
+
+6.2 Average Score
+-----------------
+Definition: Mean score across all constraints
+Formula: Sum(all scores) / Total constraints
+Usage: Average performance across all constraints
+
+
+6.3 Per-Type Performance
+------------------------
+Definition: Pass rate and average score grouped by constraint type
+Usage: Identify strengths and weaknesses by constraint type
+
+
+6.4 Per-Category Performance
+----------------------------
+Definition: Pass rate and average score grouped by prompt category
+Usage: Performance analysis by task category
+
+
+6.5 Min/Max Scores
+------------------
+Definition: Minimum and maximum scores for each constraint type
+Usage: Range analysis and outlier detection
+
+
+================================================================================
+7. SCORING METHODOLOGY
+================================================================================
+
+7.1 Score Normalization
+-----------------------
+All scores are normalized to [0, 1] range:
+  - 0.0 = Complete failure
+  - 0.5 = Pass threshold
+  - 1.0 = Perfect performance
+
+
+7.2 Pass Threshold
+------------------
+Standard threshold: score > 0.5
+  - Binary constraints: 1.0 (satisfied) or 0.0 (not satisfied)
+  - Continuous constraints: Logistic or exponential decay functions
+
+
+7.3 Binary Constraints
+----------------------
+Constraints that are either satisfied or not:
+  - Spatial relationships
+  - CSP constraints (exact match)
+  - Logic constraints (exact match)
+
+
+7.4 Continuous Constraints
+--------------------------
+Constraints with gradual scoring:
+  - Count constraints (logistic function)
+  - Attribute constraints (CLIP margin)
+  - Text constraints (exponential decay)
+  - Character consistency (weighted average)
+  - Sketch-to-render (weighted average)
+
+
+================================================================================
+8. TOOLS AND MODELS USED
+================================================================================
+
+8.1 CLIP Models
+---------------
+- open_clip_torch library
+- Pre-trained CLIP models for image-text similarity
+
+8.2 OCR Models
+--------------
+- Primary: DeepSeek-OCR (advanced OCR model)
+- Fallback: Tesseract OCR
+
+8.3 Object Detection
+--------------------
+- GroundingDINO: For spatial relationship validation
+- YOLOv8: For character detection
+
+8.4 Face Recognition
+--------------------
+- InsightFace: Primary face recognition model
+- ArcFace: Alternative face recognition approach
+
+8.5 Image Processing
+--------------------
+- PIL (Python Imaging Library): Image handling
+- OpenCV: Edge detection (Canny, HED)
+- scikit-image: SSIM computation
+- Gabor filters: Texture analysis
+
+
+================================================================================
+9. METRIC VALIDATION AND CALIBRATION
+================================================================================
+
+9.1 Threshold Calibration
+-------------------------
+- Pass threshold of 0.5 chosen based on empirical analysis
+- Binary constraints use strict 1.0/0.0 scoring
+- Continuous constraints use calibrated decay functions
+
+9.2 Metric Reliability
+----------------------
+- CLIP-based metrics: Good for semantic understanding, limited for precise counting
+- OCR-based metrics: High accuracy with DeepSeek-OCR, robust to minor errors
+- Computer vision metrics: Reliable for structural and spatial analysis
+
+9.3 Known Limitations
+---------------------
+- CLIP counting: Imprecise for similar objects
+- Text rendering: OCR may fail on garbled text
+- Edge detection: Sensitive to image quality
+- Face recognition: Requires clear face visibility
+
+
+================================================================================
+10. SUMMARY
+================================================================================
+
+Total Metric Categories: 3
+  - CLIP-Based Metrics: 2 types
+  - OCR-Based Metrics: 3 types
+  - Computer Vision Metrics: 6 types
+
+Total Constraint-Specific Metrics: 11
+  - Count, Attribute, State, Text, CSP, Spatial, Negative, Logic,
+    Table Slot, Character Consistency, Sketch-to-Render
+
+Aggregation Metrics: 5
+  - Pass Rate, Average Score, Per-Type, Per-Category, Min/Max
+
+All metrics produce scores in [0, 1] range with pass threshold of 0.5.
+
+
+================================================================================
+END OF EVALUATION METRICS DOCUMENTATION
+================================================================================
+
+Generated: November 2025
+Source: VIF-Eval Benchmark Evaluation Logic
+

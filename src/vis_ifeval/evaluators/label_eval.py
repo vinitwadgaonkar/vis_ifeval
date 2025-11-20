@@ -61,12 +61,14 @@ class LabelEvaluator(ConstraintEvaluator):
         parsed: dict[str, str] = {}
 
         for line in lines:
-            # Serving size
-            if "serving size" in line:
-                # Extract value after "serving size"
-                match = re.search(r"serving size[:\s]+([0-9.]+)\s*(ml|g|oz|l)", line)
+            # Serving size - handle OCR errors like "servina size", "serving siz", etc.
+            # Use fuzzy matching for "serving size"
+            if "serv" in line and ("size" in line or "siz" in line):
+                # Extract value - look for pattern like "serving size: 250 ml" or "servina size 250 ml"
+                # More flexible pattern that handles OCR errors
+                match = re.search(r"serv[^:]*siz[^:]*[:\s]+([0-9.]+)\s*(ml|g|oz|l)", line, re.IGNORECASE)
                 if match:
-                    parsed["serving_size"] = f"{match.group(1)} {match.group(2)}"
+                    parsed["serving_size"] = f"{match.group(1)} {match.group(2).lower()}"
 
             # Calories
             if line.startswith("calories") or "calories" in line:
@@ -81,15 +83,23 @@ class LabelEvaluator(ConstraintEvaluator):
                     parsed["total_fat"] = f"{match.group(1)} {match.group(2)}"
 
             # Sodium
-            if "sodium" in line:
-                # Extract mg value
-                mg_match = re.search(r"sodium[:\s]+([0-9.]+)\s*mg", line)
+            if "sodium" in line.lower():
+                # Extract mg value - handle various formats: "Sodium: 200 mg", "Sodium 200 mg", "Sodium-200 mg", table format "| Sodium | 50mg |"
+                # Look for number followed by "mg" anywhere in the line after "sodium"
+                mg_match = re.search(r"sodium[:\s\-|]*.*?([0-9.]+)\s*mg", line, re.IGNORECASE)
                 if mg_match:
                     parsed["sodium_mg"] = f"{mg_match.group(1)} mg"
-                # Extract %DV
+                # Extract %DV - handle OCR errors like "2g" instead of "2%"
+                # First try to find a percentage sign
                 dv_match = re.search(r"([0-9.]+)\s*%", line)
                 if dv_match:
                     parsed["sodium_dv_percent"] = f"{dv_match.group(1)}%"
+                elif not parsed.get("sodium_dv_percent"):
+                    # If no % found, look for a small number (0-20) that might be a percentage
+                    # This handles OCR errors where "%" is misread as "g" or other characters
+                    small_num_match = re.search(r"([0-9]{1,2})\s*[g%]", line)
+                    if small_num_match and int(small_num_match.group(1)) <= 20:
+                        parsed["sodium_dv_percent"] = f"{small_num_match.group(1)}%"
 
             # Total carbohydrate
             if "total carbohydrate" in line or "total carb" in line:

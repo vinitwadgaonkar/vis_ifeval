@@ -1,0 +1,959 @@
+{
+  "metadata": {
+    "timestamp": "2025-11-19T16:32:40.850178",
+    "total_prompts": 47,
+    "model": "dall-e-3",
+    "size": "1024x1024",
+    "quality": "hd"
+  },
+  "prompts": [
+    {
+      "id": "comp_001",
+      "category": "composition",
+      "prompt": "A photo of three blue mugs and two red plates on a wooden table. One of the blue mugs is tipped over. The largest blue mug is on the left side of the table, and the smallest red plate is on the right side.",
+      "constraints": [
+        {
+          "id": "mug_count",
+          "type": "count",
+          "score": 0.48153013352045226,
+          "passed": false
+        },
+        {
+          "id": "plate_count",
+          "type": "count",
+          "score": 0.4626680104117748,
+          "passed": false
+        },
+        {
+          "id": "mug_color",
+          "type": "attribute",
+          "score": 0.5534332843654151,
+          "passed": true
+        },
+        {
+          "id": "plate_color",
+          "type": "attribute",
+          "score": 0.438569910179784,
+          "passed": false
+        },
+        {
+          "id": "tipped_mug",
+          "type": "state",
+          "score": 0.49572794104649004,
+          "passed": false
+        },
+        {
+          "id": "largest_mug_left",
+          "type": "spatial",
+          "score": 1.0,
+          "passed": true
+        },
+        {
+          "id": "smallest_plate_right",
+          "type": "spatial",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "table_material",
+          "type": "attribute",
+          "score": 0.49355396581350175,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/comp_001.png",
+      "error": null
+    },
+    {
+      "id": "text_001",
+      "category": "poster_text",
+      "prompt": "A colorful poster advertising a SPRING SALE. The headline text at the top says 'SPRING SALE' in large bold letters. At the bottom, there is text that says 'Up to 50% OFF'. There is also a price tag visible with the text '$29.99'.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.005617782972323415,
+          "passed": false
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 1.522997974471263e-08,
+          "passed": false
+        },
+        {
+          "id": "price_tag_text",
+          "type": "text",
+          "score": 9.479359653504757e-19,
+          "passed": false
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/text_001.png",
+      "error": null
+    },
+    {
+      "id": "nutri_001",
+      "category": "nutrition_label",
+      "prompt": "A water bottle with a nutrition label. The label has 'PURE WATER' as the headline at the top. The nutrition facts table shows: Serving Size 250 mL, Calories 0, Total Fat 0 g, Sodium 50 mg (2 percent DV), Total Carbohydrate 0 g, Protein 0 g. The sodium value should be consistent (50 mg equals 2 percent DV). There should be no sugar mentioned anywhere on the label.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 0.09071795328941247,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "no_sugar",
+          "type": "negative",
+          "score": 0.7984144389629364,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/nutri_001.png",
+      "error": null
+    },
+    {
+      "id": "text_002",
+      "category": "poster_text",
+      "prompt": "A vibrant poster for BLACK FRIDAY SALE. The headline text says 'BLACK FRIDAY' in large bold letters. Below it says '50% OFF' in red. There are three colorful balloons floating above the text. The banner is red. There should be no watermarks anywhere on the poster.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.06392786120670757,
+          "passed": false
+        },
+        {
+          "id": "discount_text",
+          "type": "text",
+          "score": 1.2921796236906306e-66,
+          "passed": false
+        },
+        {
+          "id": "balloon_count",
+          "type": "count",
+          "score": 0.48678439840449805,
+          "passed": false
+        },
+        {
+          "id": "banner_color",
+          "type": "attribute",
+          "score": 0.48557741306189633,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/text_002.png",
+      "error": null
+    },
+    {
+      "id": "text_003",
+      "category": "poster_text",
+      "prompt": "A summer sale poster with 'SUMMER SALE' as the main headline. The text 'TODAY ONLY' appears at the bottom. There are two beach balls visible. The background banner is blue. No watermarks should be present.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.02885550339038821,
+          "passed": false
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 0.0010077854290485113,
+          "passed": false
+        },
+        {
+          "id": "beach_ball_count",
+          "type": "count",
+          "score": 0.3678281616632046,
+          "passed": false
+        },
+        {
+          "id": "banner_color",
+          "type": "attribute",
+          "score": 0.45511529688233726,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/text_003.png",
+      "error": null
+    },
+    {
+      "id": "text_004",
+      "category": "poster_text",
+      "prompt": "A holiday sale poster featuring 'CHRISTMAS SALE' in large letters. The text 'UP TO 70% OFF' is displayed prominently. Four gift boxes are arranged around the text. The decorative ribbon is green. There should be no watermarks.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 0.00023471398805907954,
+          "passed": false
+        },
+        {
+          "id": "discount_text",
+          "type": "text",
+          "score": 5.6045607918734684e-24,
+          "passed": false
+        },
+        {
+          "id": "gift_box_count",
+          "type": "count",
+          "score": 0.46991247215225945,
+          "passed": false
+        },
+        {
+          "id": "ribbon_color",
+          "type": "attribute",
+          "score": 0.510878916995657,
+          "passed": true
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/text_004.png",
+      "error": null
+    },
+    {
+      "id": "text_005",
+      "category": "poster_text",
+      "prompt": "A flash sale poster with 'FLASH SALE' as the headline. The text 'LIMITED TIME' appears below. Three stars are scattered around the text. The accent color is yellow. No watermarks anywhere.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 3.7170318684126734e-05,
+          "passed": false
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 0.01831563888873418,
+          "passed": false
+        },
+        {
+          "id": "star_count",
+          "type": "count",
+          "score": 0.44497657593349155,
+          "passed": false
+        },
+        {
+          "id": "accent_color",
+          "type": "attribute",
+          "score": 0.5918252152447869,
+          "passed": true
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/text_005.png",
+      "error": null
+    },
+    {
+      "id": "text_006",
+      "category": "poster_text",
+      "prompt": "A grand opening poster displaying 'GRAND OPENING' in bold. The text 'SPECIAL DEALS' is shown at the bottom. Five confetti pieces are visible. The main color scheme is purple. Absolutely no watermarks.",
+      "constraints": [
+        {
+          "id": "headline_text",
+          "type": "text",
+          "score": 6.175672433276966e-05,
+          "passed": false
+        },
+        {
+          "id": "bottom_text",
+          "type": "text",
+          "score": 9.79778396612892e-05,
+          "passed": false
+        },
+        {
+          "id": "confetti_count",
+          "type": "count",
+          "score": 0.4914737488531204,
+          "passed": false
+        },
+        {
+          "id": "color_scheme",
+          "type": "attribute",
+          "score": 0.4761023650611561,
+          "passed": false
+        },
+        {
+          "id": "no_watermark",
+          "type": "negative",
+          "score": 1.0,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/text_006.png",
+      "error": null
+    },
+    {
+      "id": "nutri_002",
+      "category": "nutrition_label",
+      "prompt": "A sports drink bottle with a nutrition label. The label shows 'ENERGY DRINK' at the top. Nutrition facts: Serving Size 500 mL, Calories 120, Total Fat 0 g, Sodium 200 mg (9 percent DV), Total Carbohydrate 30 g, Protein 0 g. The sodium value should be consistent (200 mg equals 9 percent DV). There should be no sugar drink characteristics.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 0.0024787521766663585,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.80919548869133,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/nutri_002.png",
+      "error": null
+    },
+    {
+      "id": "nutri_003",
+      "category": "nutrition_label",
+      "prompt": "A protein shake bottle with nutrition label. Label header says 'PROTEIN SHAKE'. Facts: Serving Size 330 mL, Calories 150, Total Fat 2 g, Sodium 100 mg (4 percent DV), Total Carbohydrate 5 g, Protein 25 g. Sodium consistency: 100 mg = 4% DV. No sugar drink features.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 0.06271022482807168,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.8381562232971191,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/nutri_003.png",
+      "error": null
+    },
+    {
+      "id": "nutri_004",
+      "category": "nutrition_label",
+      "prompt": "A juice box with nutrition label showing 'ORANGE JUICE' at top. Nutrition: Serving Size 200 mL, Calories 90, Total Fat 0 g, Sodium 10 mg (0 percent DV), Total Carbohydrate 22 g, Protein 1 g. Sodium 10 mg = 0% DV. No sugar drink appearance.",
+      "constraints": [
+        {
+          "id": "headline",
+          "type": "text",
+          "score": 0.0820849986238988,
+          "passed": false
+        },
+        {
+          "id": "serving_size",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "calories",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_fat",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_dv",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "total_carb",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "protein",
+          "type": "table_slot",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "sodium_consistency",
+          "type": "logic",
+          "score": 0.0,
+          "passed": false
+        },
+        {
+          "id": "no_sugar_drink",
+          "type": "negative",
+          "score": 0.7446639239788055,
+          "passed": true
+        }
+      ],
+      "image_path": "/home/csgrad/vinitwad/vinit_benchmark/data/outputs/full_evaluation_dalle/nutri_004.png",
+      "error": null
+    },
+    {
+      "id": "nutri_005",
+      "category": "nutrition_label",
+      "prompt": "A milk carton with nutrition label. Header reads 'WHOLE MILK'. Facts: Serving Size 240 mL, Calories 150, Total Fat 8 g, Sodium 120 mg (5 percent DV), Total Carbohydrate 12 g, Protein 8 g. Sodium consistency: 120 mg = 5% DV. Not a sugar drink.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "nutri_006",
+      "category": "nutrition_label",
+      "prompt": "A diet soda can with nutrition label. Top says 'DIET COLA'. Nutrition: Serving Size 355 mL, Calories 0, Total Fat 0 g, Sodium 40 mg (2 percent DV), Total Carbohydrate 0 g, Protein 0 g. Sodium 40 mg = 2% DV. No sugar drink features.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "comp_002",
+      "category": "composition",
+      "prompt": "A photo of three red apples on a white plate. The apples are arranged in a row. There is no person in the image.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "comp_003",
+      "category": "composition",
+      "prompt": "A photo of two empty wine glasses on a wooden table. The glasses are clear and empty. No person visible.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "comp_004",
+      "category": "composition",
+      "prompt": "A photo of four blue books stacked on a shelf. The books are all blue in color. There is no person in the frame.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "comp_005",
+      "category": "composition",
+      "prompt": "A photo of one broken ceramic plate on a marble counter. The plate is clearly broken. No people present.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "comp_006",
+      "category": "composition",
+      "prompt": "A photo of five yellow bananas in a fruit bowl. The bananas are all yellow. The bowl is ceramic. Absolutely no person in the image.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "advanced_001",
+      "category": "advanced",
+      "prompt": "A product mockup with the text 'Eco Clean' displayed prominently. A green bottle is in the center. Two leaves are positioned beside the bottle. The bottle is empty. There are no people in the image.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "advanced_002",
+      "category": "advanced",
+      "prompt": "A storefront sign showing 'OPEN 24/7' in large letters. Three red flags are hanging above the sign. The sign background is white. No watermarks or people visible.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "advanced_003",
+      "category": "advanced",
+      "prompt": "A label on a jar reading 'ORGANIC HONEY'. The jar is glass and transparent. Four bees are illustrated around the label. The jar is full. No people in the image.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "advanced_004",
+      "category": "advanced",
+      "prompt": "A menu board displaying 'DAILY SPECIAL' at the top. Below it shows '$12.99'. Two chef hats are drawn beside the text. The board is black. No watermarks or people.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "advanced_005",
+      "category": "advanced",
+      "prompt": "A product package with 'PREMIUM QUALITY' text. The package is gold colored. Three stars are printed on it. The package is sealed. There are no people or watermarks.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_01_numbers_row",
+      "category": "csp_demo",
+      "prompt": "Create a simple white poster with four labeled numbers: A, B, C, and D. Each label should appear as 'A: <number>', 'B: <number>', 'C: <number>', and 'D: <number>'. Ensure that A < B < C < D and that all four values are distinct.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_02_sum_equals",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing four values labeled 'A: <number>', 'B: <number>', 'C: <number>', and 'Total: <number>'. Ensure that A + B + C equals Total.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_03_descending_order",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster with three numbers labeled 'X: <number>', 'Y: <number>', and 'Z: <number>'. The numbers should be in strictly descending order (X > Y > Z).",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_04_unique_values",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster displaying five distinct numbers labeled 'P: <number>', 'Q: <number>', 'R: <number>', 'S: <number>', and 'T: <number>'. All five numbers must be different from each other.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_05_equation_check",
+      "category": "csp_demo",
+      "prompt": "Create a simple math equation poster showing 'M: <number>', 'N: <number>', 'O: <number>', and 'Sum: <number>'. Verify that M + N + O equals Sum.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_06_range_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster with a number labeled 'Score: <number>'. The score must be between 50 and 100 (inclusive).",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_07_equals_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster showing three values labeled 'A: <number>', 'B: <number>', and 'C: <number>'. All three values must be equal to each other.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_08_product_equals",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing 'Length: <number>', 'Width: <number>', and 'Area: <number>'. Ensure that Length \u00d7 Width equals Area.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_09_difference_equals",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing 'Total: <number>', 'Used: <number>', and 'Remaining: <number>'. Ensure that Total - Used equals Remaining.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_10_ratio_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple ratio poster showing 'Numerator: <number>', 'Denominator: <number>', and 'Ratio: <number>'. Ensure that Numerator \u00f7 Denominator equals Ratio.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_11_min_max_constraints",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster showing 'Value: <number>'. The value must be at least 10 and at most 50.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_12_chain_relation",
+      "category": "csp_demo",
+      "prompt": "Create a simple poster with four numbers labeled 'W: <number>', 'X: <number>', 'Y: <number>', and 'Z: <number>'. They must form a strict increasing chain: W < X < Y < Z.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "csp_13_modulo_constraint",
+      "category": "csp_demo",
+      "prompt": "Create a simple math poster showing 'Dividend: <number>', 'Divisor: <number>', and 'Remainder: <number>'. Ensure that Dividend mod Divisor equals Remainder.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "char_001",
+      "category": "character_consistency",
+      "prompt": "A photo of a young woman with long brown hair wearing a red jacket standing in a park. She has a friendly smile and is holding a coffee cup.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "char_002",
+      "category": "character_consistency",
+      "prompt": "The same woman from the previous photo, now sitting at a cafe table. She still has long brown hair and is wearing the same red jacket. She is reading a book.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "char_003",
+      "category": "character_consistency",
+      "prompt": "The same woman walking down a city street. She maintains her long brown hair and red jacket. She is carrying a shopping bag.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "char_004",
+      "category": "character_consistency",
+      "prompt": "A cartoon character: a blue robot with round eyes and a yellow antenna. The robot has a friendly expression and is waving.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "char_005",
+      "category": "character_consistency",
+      "prompt": "The same blue robot character in a different scene, standing in a garden. It still has round eyes, yellow antenna, and a friendly expression.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "char_006",
+      "category": "character_consistency",
+      "prompt": "The same blue robot character in a space setting. It maintains its blue color, round eyes, yellow antenna, and friendly appearance.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "sketch_001",
+      "category": "sketch_to_render",
+      "prompt": "A detailed 3D render of a modern house with a triangular roof, two windows, and a front door. The house should be white with a red roof. There is a tree next to the house.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "sketch_002",
+      "category": "sketch_to_render",
+      "prompt": "A photorealistic render of a vintage car from a side view. The car has rounded edges, two doors, and four wheels. The car is blue with chrome details.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "sketch_003",
+      "category": "sketch_to_render",
+      "prompt": "A detailed 3D render of a coffee cup on a wooden table. The cup has a handle and steam rising from it. The scene has soft lighting.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "sketch_004",
+      "category": "sketch_to_render",
+      "prompt": "A stylized render of a cat sitting on a windowsill. The cat has pointy ears, whiskers, and a long tail. The background shows a city skyline.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    },
+    {
+      "id": "sketch_005",
+      "category": "sketch_to_render",
+      "prompt": "A realistic render of a mountain landscape at sunset. There are pine trees in the foreground, snow-capped peaks in the background, and orange clouds in the sky.",
+      "constraints": [],
+      "image_path": null,
+      "error": "Error code: 400 - {'error': {'message': 'Billing hard limit has been reached', 'type': 'image_generation_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}"
+    }
+  ],
+  "summary": {
+    "total_prompts": 47,
+    "total_constraints": 76,
+    "passed_constraints": 13,
+    "failed_constraints": 63,
+    "errors": 36,
+    "pass_rate": 0.17105263157894737,
+    "by_type": {
+      "count": {
+        "total": 7,
+        "passed": 0,
+        "failed": 7,
+        "pass_rate": 0.0,
+        "avg_score": 0.45788192870554306,
+        "min_score": 0.3678281616632046,
+        "max_score": 0.4914737488531204
+      },
+      "attribute": {
+        "total": 8,
+        "passed": 3,
+        "failed": 5,
+        "pass_rate": 0.375,
+        "avg_score": 0.5006320459505669,
+        "min_score": 0.438569910179784,
+        "max_score": 0.5918252152447869
+      },
+      "state": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "pass_rate": 0.0,
+        "avg_score": 0.49572794104649004,
+        "min_score": 0.49572794104649004,
+        "max_score": 0.49572794104649004
+      },
+      "spatial": {
+        "total": 2,
+        "passed": 1,
+        "failed": 1,
+        "pass_rate": 0.5,
+        "avg_score": 0.5,
+        "min_score": 0.0,
+        "max_score": 1.0
+      },
+      "text": {
+        "total": 17,
+        "passed": 0,
+        "failed": 17,
+        "pass_rate": 0.0,
+        "avg_score": 0.020949890288586362,
+        "min_score": 1.2921796236906306e-66,
+        "max_score": 0.09071795328941247
+      },
+      "table_slot": {
+        "total": 28,
+        "passed": 0,
+        "failed": 28,
+        "pass_rate": 0.0,
+        "avg_score": 0.0,
+        "min_score": 0.0,
+        "max_score": 0.0
+      },
+      "logic": {
+        "total": 4,
+        "passed": 0,
+        "failed": 4,
+        "pass_rate": 0.0,
+        "avg_score": 0.0,
+        "min_score": 0.0,
+        "max_score": 0.0
+      },
+      "negative": {
+        "total": 9,
+        "passed": 9,
+        "failed": 0,
+        "pass_rate": 1.0,
+        "avg_score": 0.9100477861033546,
+        "min_score": 0.7446639239788055,
+        "max_score": 1.0
+      }
+    },
+    "by_category": {
+      "composition": {
+        "total": 8,
+        "passed": 2,
+        "failed": 6,
+        "pass_rate": 0.25,
+        "avg_score": 0.4906854056671772
+      },
+      "poster_text": {
+        "total": 28,
+        "passed": 7,
+        "failed": 21,
+        "pass_rate": 0.25,
+        "avg_score": 0.35352252750858304
+      },
+      "nutrition_label": {
+        "total": 40,
+        "passed": 4,
+        "failed": 36,
+        "pass_rate": 0.1,
+        "avg_score": 0.08571055009620601
+      }
+    }
+  }
+}

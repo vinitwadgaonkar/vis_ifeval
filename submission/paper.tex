@@ -1,0 +1,109 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{The Visual Instruction Following Evaluation Benchmark (VIF-Eval):\\A Comprehensive Framework for Evaluating Compositional and Editorial Image Generation}
+\author{[Your Name/Team]\\[Your Institution]}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper introduces the Visual Instruction Following Evaluation Benchmark (VIF-Eval), a comprehensive framework for assessing the capabilities of generative visual models in real-world scenarios involving complex image creation, editing, and compositional reasoning. Unlike traditional text-to-image benchmarks that focus on simple prompt adherence, VIF-Eval evaluates models across multiple dimensions including complex compositional reasoning, text rendering accuracy, constraint satisfaction problems (CSP), character consistency, and sketch-to-render translation. We evaluate three state-of-the-art models—GPT Image 1, DALL-E 3, and Gemini 2.5 Flash Image (Nano Banana)—across 47 diverse prompts with 167+ constraints. Our results reveal significant performance variations across constraint types, with models achieving 54.7--58.1\% overall pass rates on standard constraints but struggling with text rendering (13.0\% pass rate) and complex compositional tasks. The benchmark provides actionable insights for improving generative AI systems and establishes a foundation for future research in visual instruction following.
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Background}
+Generative visual models have achieved remarkable progress in recent years, enabling high-quality image synthesis from text prompts. Models like DALL-E 3, Midjourney, Stable Diffusion, and GPT Image 1 have demonstrated impressive capabilities in creating photorealistic and artistic images.
+
+\subsection{Motivation and Industry Relevance}
+Real-world visual generation tasks often require complex compositional reasoning, accurate text rendering, constraint satisfaction, consistency, and precision editing. Current benchmarks primarily focus on prompt-image alignment using metrics like CLIP score, but fail to assess these critical capabilities systematically.
+
+\subsection{Gap Analysis}
+Existing text-to-image evaluation frameworks have several limitations: limited task diversity, lack of automated precision metrics, missing constraint validation, and insufficient real-world scenarios. VIF-Eval addresses these gaps.
+
+\section{Methodology}
+
+\subsection{Visual Task Taxonomy}
+VIF-Eval defines a comprehensive taxonomy covering:
+\begin{itemize}
+    \item Complex Prompt Adherence (count, attribute, state, spatial constraints)
+    \item Text Rendering (poster text, label text, banner text)
+    \item Constraint Satisfaction Problems (numeric relations, sorting, uniqueness, etc.)
+    \item Style \& Character Consistency
+    \item Image-to-Image Translation (sketch-to-render)
+\end{itemize}
+
+\subsection{Dataset Creation}
+Our prompt suite consists of 47 prompts across 7 categories:
+\begin{itemize}
+    \item Composition (6 prompts)
+    \item Poster Text (6 prompts)
+    \item Nutrition Labels (6 prompts)
+    \item CSP Demo (13 prompts)
+    \item Advanced (6 prompts)
+    \item Character Consistency (6 prompts)
+    \item Sketch-to-Render (5 prompts)
+\end{itemize}
+
+\subsection{Evaluation Metrics}
+Automated metrics include CLIP-based scoring, OCR-based text accuracy, computer vision metrics (SSIM, edge alignment), and constraint-specific validation. All scores are normalized to [0, 1] with a pass threshold of 0.5.
+
+\section{Results}
+
+\subsection{Overall Performance}
+\begin{table}[h]
+\centering
+\caption{Overall Performance Comparison}
+\label{tab:overall}
+\begin{tabular}{lcccc}
+\toprule
+Model & Prompts & Constraints & Passed & Pass Rate \\
+\midrule
+GPT Image 1 & 47 & 167 & 97 & 58.1\% \\
+Nano Banana & 47 & 172 & 94 & 54.7\% \\
+DALL-E 3 & 47 & 76 & 13 & 17.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Performance by Constraint Type}
+Models excel at spatial relationships (100\% pass rate), character consistency (100\%), and CSP constraints (95--100\%). However, they struggle significantly with text rendering (12--13\% pass rate) and counting (17--31\% pass rate).
+
+\section{Model Behavior Analysis}
+
+\subsection{Error Patterns}
+Common failure modes include:
+\begin{itemize}
+    \item Text rendering: Garbled or unreadable text (87--88\% failure rate)
+    \item Count constraints: Incorrect object counts (68--82\% failure rate)
+    \item Composition: Attribute mismatches and missing objects
+\end{itemize}
+
+\section{Case Studies}
+Detailed case studies demonstrate model performance on representative tasks including text rendering, complex composition, and CSP constraints.
+
+\section{Limitations and Future Work}
+Current limitations include incomplete DALL-E 3 evaluation, limited human evaluation, and missing cost/latency metrics. Future work will expand the dataset and incorporate additional evaluation dimensions.
+
+\section{Conclusion}
+VIF-Eval provides a comprehensive framework for assessing generative visual models. Our evaluation reveals strengths in spatial relationships and constraint satisfaction, but critical limitations in text rendering and precise counting. The benchmark establishes a foundation for systematic evaluation and model improvement.
+
+\section*{References}
+\begin{enumerate}
+    \item Radford, A., et al. (2021). Learning Transferable Visual Models From Natural Language Supervision. ICML.
+    \item Ramesh, A., et al. (2022). Hierarchical Text-Conditional Image Generation with CLIP Latents. NeurIPS.
+    \item DeepSeek-OCR: https://github.com/deepseek-ai/DeepSeek-OCR
+    \item GroundingDINO: https://github.com/IDEA-Research/GroundingDINO
+\end{enumerate}
+
+\end{document}
+

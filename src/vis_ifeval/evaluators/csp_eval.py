@@ -109,7 +109,9 @@ class CSPEvaluator(ConstraintEvaluator):
             Dictionary mapping symbol names to parsed float values.
         """
         values: dict[str, float] = {}
-        text_lower = ocr_text.lower()
+        # Remove markdown formatting and normalize whitespace
+        text_clean = re.sub(r'\*\*|\*|#+', '', ocr_text)  # Remove markdown
+        text_lower = text_clean.lower()
 
         for symbol, field_name in field_map.items():
             # Try multiple patterns: "A: 3", "A = 3", "A 3", "A:3", "A: -3.5", etc.
@@ -117,6 +119,7 @@ class CSPEvaluator(ConstraintEvaluator):
             field_escaped = re.escape(field_name.lower())
             
             # Enhanced patterns supporting negative numbers, decimals, and units
+            # Also handle multi-line patterns (label on one line, number on next)
             patterns = [
                 # Standard patterns with optional negative sign and decimals
                 rf"{field_escaped}\s*:\s*(-?\d+\.?\d*)",  # "A: 3", "A: -3.5"
@@ -133,7 +136,7 @@ class CSPEvaluator(ConstraintEvaluator):
 
             found = False
             for pattern in patterns:
-                match = re.search(pattern, text_lower)
+                match = re.search(pattern, text_lower, re.MULTILINE | re.DOTALL)
                 if match:
                     try:
                         value_str = match.group(1)
@@ -143,6 +146,24 @@ class CSPEvaluator(ConstraintEvaluator):
                         break
                     except ValueError:
                         continue
+            
+            # If not found, try multi-line patterns (label on one line, number on next line)
+            if not found:
+                multiline_patterns = [
+                    rf"{field_escaped}\s*:?\s*\n\s*(-?\d+\.?\d*)",  # "A:\n15" or "A\n15"
+                    rf"{field_escaped}\s*=\s*\n\s*(-?\d+\.?\d*)",   # "Total =\n78"
+                ]
+                for pattern in multiline_patterns:
+                    match = re.search(pattern, text_lower, re.MULTILINE | re.DOTALL)
+                    if match:
+                        try:
+                            value_str = match.group(1)
+                            value = float(value_str)
+                            values[symbol] = value
+                            found = True
+                            break
+                        except ValueError:
+                            continue
 
             if not found:
                 logger.debug(f"Could not parse value for symbol '{symbol}' (field '{field_name}')")

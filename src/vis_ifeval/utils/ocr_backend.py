@@ -89,54 +89,99 @@ class AdvancedBackend(TextBackend):
 
         elif self.model_name == "deepseek":
             try:
-                from transformers import AutoModelForCausalLM
-                from deepseek_vl.models import VLChatProcessor
+                from transformers import AutoModel, AutoTokenizer
                 import torch
+                import tempfile
+                import os
+                import sys
                 
-                # Use the smaller 1.3b model for feasibility
-                model_path = "deepseek-ai/deepseek-vl-1.3b-chat"
-                logger.info(f"Loading DeepSeek-VL model from {model_path}...")
+                # Use the latest DeepSeek-OCR model
+                model_path = "deepseek-ai/DeepSeek-OCR"
+                logger.info(f"Loading DeepSeek-OCR model from {model_path}...")
                 
-                self._vl_chat_processor = VLChatProcessor.from_pretrained(model_path)
-                self._tokenizer = self._vl_chat_processor.tokenizer
-
                 # Determine device
                 self._device = "cuda" if torch.cuda.is_available() else "cpu"
-                if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-                    self._device = "mps" # DeepSeek might not fully support MPS out of box, but let's try
-                    # If MPS fails, might need to fallback to CPU, but standard torch should work.
-                    # Actually, for safety with custom kernels, let's stick to CPU if not CUDA for now
-                    # unless we are sure.
-                    # But let's try CPU first for compatibility if CUDA is missing.
-                    self._device = "cpu" 
+                
+                # Patch the import issue with LlamaFlashAttention2 if needed
+                # The model code tries to import this but it may not exist in all transformers versions
+                try:
+                    from transformers.models.llama.modeling_llama import LlamaFlashAttention2
+                except ImportError:
+                    # Create a dummy class to avoid import errors in model code
+                    class LlamaFlashAttention2:
+                        pass
+                    import transformers.models.llama.modeling_llama as llama_module
+                    if not hasattr(llama_module, 'LlamaFlashAttention2'):
+                        llama_module.LlamaFlashAttention2 = LlamaFlashAttention2
+                
+                # Patch DynamicCache to add compatibility methods
+                try:
+                    from transformers.cache_utils import DynamicCache
+                    if not hasattr(DynamicCache, 'seen_tokens'):
+                        # Add seen_tokens property to DynamicCache
+                        def _get_seen_tokens(self):
+                            # Calculate seen tokens from cache
+                            if hasattr(self, 'key_cache') and self.key_cache:
+                                return self.key_cache[0].shape[2] if len(self.key_cache) > 0 else 0
+                            return 0
+                        DynamicCache.seen_tokens = property(_get_seen_tokens)
+                    
+                    # Patch get_max_length to use get_seq_length (newer transformers API)
+                    if not hasattr(DynamicCache, 'get_max_length'):
+                        def _get_max_length(self):
+                            return self.get_seq_length() if hasattr(self, 'get_seq_length') else 0
+                        DynamicCache.get_max_length = _get_max_length
+                    
+                    # Patch get_usable_length (newer transformers API)
+                    if not hasattr(DynamicCache, 'get_usable_length'):
+                        def _get_usable_length(self, seq_length):
+                            # Return the usable length from cache
+                            if hasattr(self, 'get_seq_length'):
+                                return self.get_seq_length()
+                            return 0
+                        DynamicCache.get_usable_length = _get_usable_length
+                except ImportError:
+                    pass
+                
+                # Load tokenizer and model
+                self._tokenizer = AutoTokenizer.from_pretrained(
+                    model_path, 
+                    trust_remote_code=True
+                )
                 
                 if torch.cuda.is_available():
-                    self._vl_gpt = AutoModelForCausalLM.from_pretrained(
-                        model_path, 
+                    # Use default attention (flash_attention_2 requires additional setup)
+                    # The model will work fine with default attention
+                    self._model = AutoModel.from_pretrained(
+                        model_path,
                         trust_remote_code=True,
-                        torch_dtype=torch.bfloat16
-                    ).to(self._device).eval()
+                        use_safetensors=True
+                    ).eval().cuda().to(torch.bfloat16)
                 else:
-                    # CPU/MPS might need float32
-                    self._vl_gpt = AutoModelForCausalLM.from_pretrained(
-                        model_path, 
-                        trust_remote_code=True
-                    ).to(self._device).eval()
+                    # CPU mode
+                    self._model = AutoModel.from_pretrained(
+                        model_path,
+                        trust_remote_code=True,
+                        use_safetensors=True
+                    ).eval()
+                
+                # Create temp directory for image processing
+                self._temp_dir = tempfile.mkdtemp()
                 
                 self._backend = "deepseek"
-                logger.info(f"DeepSeek-VL loaded successfully on {self._device}")
+                logger.info(f"DeepSeek-OCR loaded successfully on {self._device}")
                 return
             except ImportError as e:
                 logger.warning(f"DeepSeek dependencies missing: {e}")
             except Exception as e:
-                logger.warning(f"Failed to load DeepSeek model: {e}")
+                logger.warning(f"Failed to load DeepSeek-OCR model: {e}")
                 import traceback
                 traceback.print_exc()
 
         # Fallback to Tesseract
         logger.warning(
             f"Advanced OCR backend '{self.model_name}' not available. "
-            "Falling back to Tesseract. Install with: pip install surya-ocr or deepseek-vl"
+            "Falling back to Tesseract. Install with: pip install surya-ocr or transformers"
         )
         self._fallback = TesseractBackend()
         self._backend = "tesseract"
@@ -214,7 +259,7 @@ class AdvancedBackend(TextBackend):
             return TesseractBackend().extract_text(image)
 
     def _extract_with_deepseek(self, image: "Image.Image") -> str:
-        """Extract text using DeepSeek-VL.
+        """Extract text using DeepSeek-OCR.
 
         Args:
             image: PIL Image to extract text from.
@@ -222,65 +267,109 @@ class AdvancedBackend(TextBackend):
         Returns:
             Extracted text as a string.
         """
-        from deepseek_vl.utils.io import load_pil_images
         import tempfile
-        import torch
-        
-        # Create temp file for the image because load_pil_images expects it?
-        # Actually load_pil_images helper might be needed, or we can construct input manually.
-        # But let's stick to standard usage.
+        import os
+        import logging
+        logger = logging.getLogger(__name__)
         
         # Save image to temp file
-        with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
+        with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False, dir=self._temp_dir) as tmp:
             image.convert("RGB").save(tmp.name)
             tmp_path = tmp.name
 
         try:
-            conversation = [
-                {
-                    "role": "User",
-                    "content": "<image_placeholder>Extract all text from this image verbatim, preserving line breaks.",
-                    "images": [tmp_path]
-                },
-                {
-                    "role": "Assistant",
-                    "content": ""
-                }
-            ]
+            # Use DeepSeek-OCR's infer method with OCR prompt
+            # The model expects: prompt, image_file, output_path, and other parameters
+            prompt = "<image>\nFree OCR. "
             
-            pil_images = load_pil_images(conversation)
-            prepare_inputs = self._vl_chat_processor(
-                conversations=[conversation],
-                images=pil_images,
-                force_batchify=True
-            ).to(self._device)
+            # Capture stdout since infer might print the result
+            import sys
+            from io import StringIO
+            old_stdout = sys.stdout
+            sys.stdout = captured_output = StringIO()
             
-            # Generate
-            inputs_embeds = self._vl_gpt.prepare_inputs_embeds(**prepare_inputs)
-            
-            with torch.no_grad():
-                outputs = self._vl_gpt.language_model.generate(
-                    inputs_embeds=inputs_embeds,
-                    attention_mask=prepare_inputs.attention_mask,
-                    pad_token_id=self._tokenizer.eos_token_id,
-                    bos_token_id=self._tokenizer.bos_token_id,
-                    eos_token_id=self._tokenizer.eos_token_id,
-                    max_new_tokens=512,
-                    do_sample=False,
-                    use_cache=True
+            try:
+                # Call the model's infer method
+                # Parameters: base_size=1024, image_size=640, crop_mode=True for "Gundam" mode
+                # For faster inference, we can use smaller sizes: base_size=640, image_size=640, crop_mode=False
+                result = self._model.infer(
+                    self._tokenizer,
+                    prompt=prompt,
+                    image_file=tmp_path,
+                    output_path=self._temp_dir,
+                    base_size=1024,
+                    image_size=640,
+                    crop_mode=True,
+                    save_results=False,
+                    test_compress=False
                 )
-                
-            answer = self._tokenizer.decode(outputs[0].cpu().tolist(), skip_special_tokens=True)
-            return answer
+            finally:
+                sys.stdout = old_stdout
+            
+            # Get captured output
+            captured_text = captured_output.getvalue()
+            
+            # The infer method may return different types depending on the model
+            # It might also print to stdout, so check both
+            extracted_text = ""
+            
+            # First, check if result is a string or has text
+            if isinstance(result, str) and result.strip():
+                extracted_text = result.strip()
+            elif result is not None:
+                # Try to extract from result object
+                if isinstance(result, (list, tuple)) and len(result) > 0:
+                    first = result[0]
+                    if isinstance(first, str):
+                        extracted_text = first.strip()
+                    elif hasattr(first, 'text'):
+                        extracted_text = str(first.text).strip()
+                elif hasattr(result, 'text'):
+                    extracted_text = str(result.text).strip()
+                elif hasattr(result, '__dict__'):
+                    # Try to find text in the object's attributes
+                    for attr in ['text', 'content', 'output', 'result']:
+                        if hasattr(result, attr):
+                            val = getattr(result, attr)
+                            if isinstance(val, str) and val.strip():
+                                extracted_text = val.strip()
+                                break
+            
+            # If no text from result, check captured stdout
+            # The model often prints the OCR result to stdout
+            if not extracted_text and captured_text:
+                # Extract text from captured output
+                # Look for the actual OCR text (usually after "=====================" markers)
+                lines = captured_text.split('\n')
+                # Find the text content (skip debug/status lines)
+                text_lines = []
+                skip_patterns = ['BASE:', 'PATCHES:', '=====================']
+                for line in lines:
+                    line = line.strip()
+                    if line and not any(line.startswith(p) for p in skip_patterns):
+                        text_lines.append(line)
+                if text_lines:
+                    extracted_text = '\n'.join(text_lines).strip()
+            
+            # If still no text, try converting result to string
+            if not extracted_text and result is not None:
+                result_str = str(result)
+                if result_str and result_str != "None" and len(result_str) > 10:
+                    extracted_text = result_str.strip()
+            
+            return extracted_text if extracted_text else ""
 
         except Exception as e:
-            import logging
-            logger = logging.getLogger(__name__)
-            logger.warning(f"DeepSeek OCR extraction failed: {e}. Falling back to Tesseract.")
+            logger.warning(f"DeepSeek-OCR extraction failed: {e}. Falling back to Tesseract.")
+            import traceback
+            traceback.print_exc()
             return TesseractBackend().extract_text(image)
         finally:
             if os.path.exists(tmp_path):
-                os.unlink(tmp_path)
+                try:
+                    os.unlink(tmp_path)
+                except:
+                    pass
 
 
 def build_text_backend(name: str) -> TextBackend:

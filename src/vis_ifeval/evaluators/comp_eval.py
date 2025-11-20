@@ -70,7 +70,23 @@ class CompositionEvaluator(ConstraintEvaluator):
         counts = sorted({max(1, target - 1), target, target + 1, 1, 2, 3, 4})
         counts = [c for c in counts if 1 <= c <= 5]
 
-        texts = [f"{c} {obj}" if c > 1 else f"one {obj}" for c in counts]
+        # Use multiple text variations for better accuracy
+        def get_count_text(count: int) -> str:
+            """Get text for a count, with variations."""
+            if count == 1:
+                return f"one {obj}"
+            elif count == 2:
+                return f"two {obj}s"
+            elif count == 3:
+                return f"three {obj}s"
+            elif count == 4:
+                return f"four {obj}s"
+            elif count == 5:
+                return f"five {obj}s"
+            else:
+                return f"{count} {obj}s"
+
+        texts = [get_count_text(c) for c in counts]
         sims = self.clip.image_text_similarities(image, texts)
         if sims is None or len(sims) == 0:
             return 0.0
@@ -87,8 +103,8 @@ class CompositionEvaluator(ConstraintEvaluator):
         best_other = max(sim_others) if sim_others else -1.0
 
         margin = sim_target - best_other  # positive if target wins.
-        # Map margin to [0,1] via logistic.
-        score = 1.0 / (1.0 + math.exp(-8.0 * margin))
+        # Map margin to [0,1] via logistic with slightly adjusted steepness
+        score = 1.0 / (1.0 + math.exp(-9.0 * margin))
         return float(max(0.0, min(1.0, score)))
 
     # ---------- ATTRIBUTE ----------
@@ -98,17 +114,52 @@ class CompositionEvaluator(ConstraintEvaluator):
         Check if object appears with given attribute.
 
         Assumes:
-        - constraint["object"], e.g. "mug"
-        - constraint["attribute"], e.g. "blue"
+        - constraint["object"], e.g. "banner"
+        - constraint["attribute"], e.g. "color" (attribute type)
+        - constraint["target"], e.g. "red" (attribute value)
         """
         if not self._check_clip_enabled():
             return 0.0
 
         obj = constraint.get("object", "object")
-        attr = constraint.get("attribute", "")
-        if not attr:
+        attr_type = constraint.get("attribute", "")
+        attr_value = constraint.get("target", "")
+        
+        # Use target value if available, otherwise fall back to attribute field
+        if attr_value:
+            attr = attr_value
+        elif attr_type:
+            attr = attr_type
+        else:
             return 0.0
 
+        # For color attributes, compare against multiple colors to improve accuracy
+        if attr_type == "color" and attr_value:
+            # Common colors to compare against
+            colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "black", "white", "gray"]
+            if attr_value.lower() in colors:
+                # Create texts: target color, plain object, and other colors
+                texts = [f"a {attr_value} {obj}", f"a {obj}"]
+                # Add a few other colors as negative examples
+                other_colors = [c for c in colors if c != attr_value.lower()][:3]
+                texts.extend([f"a {c} {obj}" for c in other_colors])
+                
+                sims = self.clip.image_text_similarities(image, texts)
+                if sims is None or len(sims) < 2:
+                    return 0.0
+                
+                sim_target = sims[0]
+                sim_plain = sims[1]
+                sim_others = sims[2:] if len(sims) > 2 else []
+                best_other = max(sim_others) if sim_others else sim_plain
+                
+                # Use the better of plain or other colors as baseline
+                baseline = max(sim_plain, best_other)
+                margin = sim_target - baseline
+                score = 1.0 / (1.0 + math.exp(-8.0 * margin))
+                return float(max(0.0, min(1.0, score)))
+
+        # Default: compare attribute vs plain
         text_attr = f"a {attr} {obj}"
         text_plain = f"a {obj}"
 

@@ -1,0 +1,355 @@
+{
+  "models": [
+    "gpt-image-1",
+    "nano-banana",
+    "dall-e-3"
+  ],
+  "overall": [
+    {
+      "total_prompts": 47,
+      "total_constraints": 167,
+      "passed": 97,
+      "failed": 70,
+      "pass_rate": 0.5808383233532934,
+      "errors": 1
+    },
+    {
+      "total_prompts": 47,
+      "total_constraints": 172,
+      "passed": 94,
+      "failed": 78,
+      "pass_rate": 0.5465116279069767,
+      "errors": 0
+    },
+    {
+      "total_prompts": 47,
+      "total_constraints": 76,
+      "passed": 13,
+      "failed": 63,
+      "pass_rate": 0.17105263157894737,
+      "errors": 36
+    }
+  ],
+  "by_type": {
+    "count": {
+      "gpt-image-1": {
+        "total": 16,
+        "passed": 5,
+        "pass_rate": 0.3125,
+        "avg_score": 0.49109833200831726
+      },
+      "nano-banana": {
+        "total": 17,
+        "passed": 3,
+        "pass_rate": 0.17647058823529413,
+        "avg_score": 0.47574668988653385
+      },
+      "dall-e-3": {
+        "total": 7,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "avg_score": 0.45788192870554306
+      }
+    },
+    "attribute": {
+      "gpt-image-1": {
+        "total": 20,
+        "passed": 11,
+        "pass_rate": 0.55,
+        "avg_score": 0.5212514185858844
+      },
+      "nano-banana": {
+        "total": 21,
+        "passed": 9,
+        "pass_rate": 0.42857142857142855,
+        "avg_score": 0.5167885198827913
+      },
+      "dall-e-3": {
+        "total": 8,
+        "passed": 3,
+        "pass_rate": 0.375,
+        "avg_score": 0.5006320459505669
+      }
+    },
+    "state": {
+      "gpt-image-1": {
+        "total": 6,
+        "passed": 5,
+        "pass_rate": 0.8333333333333334,
+        "avg_score": 0.5555685652624376
+      },
+      "nano-banana": {
+        "total": 6,
+        "passed": 2,
+        "pass_rate": 0.3333333333333333,
+        "avg_score": 0.5368071054775457
+      },
+      "dall-e-3": {
+        "total": 1,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "avg_score": 0.49572794104649004
+      }
+    },
+    "spatial": {
+      "gpt-image-1": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0,
+        "avg_score": 1.0
+      },
+      "nano-banana": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0,
+        "avg_score": 1.0
+      },
+      "dall-e-3": {
+        "total": 2,
+        "passed": 1,
+        "pass_rate": 0.5,
+        "avg_score": 0.5
+      }
+    },
+    "text": {
+      "gpt-image-1": {
+        "total": 23,
+        "passed": 3,
+        "pass_rate": 0.13043478260869565,
+        "avg_score": 0.1638089026406853
+      },
+      "nano-banana": {
+        "total": 25,
+        "passed": 3,
+        "pass_rate": 0.12,
+        "avg_score": 0.14911475403506588
+      },
+      "dall-e-3": {
+        "total": 17,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "avg_score": 0.020949890288586362
+      }
+    },
+    "table_slot": {
+      "gpt-image-1": {
+        "total": 42,
+        "passed": 20,
+        "pass_rate": 0.47619047619047616,
+        "avg_score": 0.4879975396348752
+      },
+      "nano-banana": {
+        "total": 42,
+        "passed": 23,
+        "pass_rate": 0.5476190476190477,
+        "avg_score": 0.5512973456236924
+      },
+      "dall-e-3": {
+        "total": 28,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "avg_score": 0.0
+      }
+    },
+    "logic": {
+      "gpt-image-1": {
+        "total": 6,
+        "passed": 3,
+        "pass_rate": 0.5,
+        "avg_score": 0.38737824390101266
+      },
+      "nano-banana": {
+        "total": 6,
+        "passed": 4,
+        "pass_rate": 0.6666666666666666,
+        "avg_score": 0.5043761786526131
+      },
+      "dall-e-3": {
+        "total": 4,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "avg_score": 0.0
+      }
+    },
+    "negative": {
+      "gpt-image-1": {
+        "total": 23,
+        "passed": 23,
+        "pass_rate": 1.0,
+        "avg_score": 0.9399965509124424
+      },
+      "nano-banana": {
+        "total": 24,
+        "passed": 24,
+        "pass_rate": 1.0,
+        "avg_score": 0.9472235596428314
+      },
+      "dall-e-3": {
+        "total": 9,
+        "passed": 9,
+        "pass_rate": 1.0,
+        "avg_score": 0.9100477861033546
+      }
+    },
+    "csp": {
+      "gpt-image-1": {
+        "total": 20,
+        "passed": 20,
+        "pass_rate": 1.0,
+        "avg_score": 1.0
+      },
+      "nano-banana": {
+        "total": 20,
+        "passed": 19,
+        "pass_rate": 0.95,
+        "avg_score": 0.95
+      }
+    },
+    "character_consistency": {
+      "gpt-image-1": {
+        "total": 4,
+        "passed": 4,
+        "pass_rate": 1.0,
+        "avg_score": 0.9873999999999999
+      },
+      "nano-banana": {
+        "total": 4,
+        "passed": 4,
+        "pass_rate": 1.0,
+        "avg_score": 0.979175
+      }
+    },
+    "sketch_to_render": {
+      "gpt-image-1": {
+        "total": 5,
+        "passed": 1,
+        "pass_rate": 0.2,
+        "avg_score": 0.45606
+      },
+      "nano-banana": {
+        "total": 5,
+        "passed": 1,
+        "pass_rate": 0.2,
+        "avg_score": 0.45120000000000005
+      }
+    }
+  },
+  "by_category": {
+    "composition": {
+      "gpt-image-1": {
+        "total": 27,
+        "passed": 21,
+        "pass_rate": 0.7777777777777778,
+        "avg_score": 0.6583370268602727
+      },
+      "nano-banana": {
+        "total": 27,
+        "passed": 14,
+        "pass_rate": 0.5185185185185185,
+        "avg_score": 0.6446241662267882
+      },
+      "dall-e-3": {
+        "total": 8,
+        "passed": 2,
+        "pass_rate": 0.25,
+        "avg_score": 0.4906854056671772
+      }
+    },
+    "poster_text": {
+      "gpt-image-1": {
+        "total": 23,
+        "passed": 7,
+        "pass_rate": 0.30434782608695654,
+        "avg_score": 0.40372985950371026
+      },
+      "nano-banana": {
+        "total": 28,
+        "passed": 9,
+        "pass_rate": 0.32142857142857145,
+        "avg_score": 0.4380270978433002
+      },
+      "dall-e-3": {
+        "total": 28,
+        "passed": 7,
+        "pass_rate": 0.25,
+        "avg_score": 0.35352252750858304
+      }
+    },
+    "nutrition_label": {
+      "gpt-image-1": {
+        "total": 60,
+        "passed": 30,
+        "pass_rate": 0.5,
+        "avg_score": 0.4753435299063865
+      },
+      "nano-banana": {
+        "total": 60,
+        "passed": 34,
+        "pass_rate": 0.5666666666666667,
+        "avg_score": 0.5319754168696886
+      },
+      "dall-e-3": {
+        "total": 40,
+        "passed": 4,
+        "pass_rate": 0.1,
+        "avg_score": 0.08571055009620601
+      }
+    },
+    "advanced": {
+      "gpt-image-1": {
+        "total": 28,
+        "passed": 14,
+        "pass_rate": 0.5,
+        "avg_score": 0.5800787981079383
+      },
+      "nano-banana": {
+        "total": 28,
+        "passed": 13,
+        "pass_rate": 0.4642857142857143,
+        "avg_score": 0.5433906753204757
+      }
+    },
+    "csp_demo": {
+      "gpt-image-1": {
+        "total": 20,
+        "passed": 20,
+        "pass_rate": 1.0,
+        "avg_score": 1.0
+      },
+      "nano-banana": {
+        "total": 20,
+        "passed": 19,
+        "pass_rate": 0.95,
+        "avg_score": 0.95
+      }
+    },
+    "character_consistency": {
+      "gpt-image-1": {
+        "total": 4,
+        "passed": 4,
+        "pass_rate": 1.0,
+        "avg_score": 0.9873999999999999
+      },
+      "nano-banana": {
+        "total": 4,
+        "passed": 4,
+        "pass_rate": 1.0,
+        "avg_score": 0.979175
+      }
+    },
+    "sketch_to_render": {
+      "gpt-image-1": {
+        "total": 5,
+        "passed": 1,
+        "pass_rate": 0.2,
+        "avg_score": 0.45606
+      },
+      "nano-banana": {
+        "total": 5,
+        "passed": 1,
+        "pass_rate": 0.2,
+        "avg_score": 0.45120000000000005
+      }
+    }
+  }
+}

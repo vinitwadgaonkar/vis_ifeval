@@ -1,0 +1,631 @@
+================================================================================
+VISUAL INSTRUCTION FOLLOWING EVALUATION BENCHMARK (VIF-EVAL)
+COMPLETE PERFORMANCE SUMMARY - ALL THREE MODELS
+================================================================================
+
+Date: November 2025
+Total Prompts Evaluated: 47
+Total Constraints: 167-172 (varies by model)
+
+================================================================================
+1. OVERALL PERFORMANCE COMPARISON
+================================================================================
+
+Model: GPT Image 1
+------------------
+Total Prompts:        47
+Total Constraints:    167
+Passed Constraints:   97
+Failed Constraints:   70
+Pass Rate:            58.1%
+Errors:               1
+Average Score:        (calculated across all constraints)
+
+Model: Nano Banana (Gemini 2.5 Flash Image)
+--------------------------------------------
+Total Prompts:        47
+Total Constraints:    172
+Passed Constraints:   94
+Failed Constraints:   78
+Pass Rate:            54.7%
+Errors:               0
+Average Score:        (calculated across all constraints)
+
+Model: DALL-E 3
+---------------
+Total Prompts:        47
+Total Constraints:    76 (partial evaluation)
+Passed Constraints:   13
+Failed Constraints:   63
+Pass Rate:            17.1%
+Errors:               36
+Average Score:        (calculated across all constraints)
+Note: Evaluation incomplete due to API billing limits (11/47 prompts completed)
+
+
+================================================================================
+2. PERFORMANCE BY CONSTRAINT TYPE
+================================================================================
+
+2.1 SPATIAL CONSTRAINTS
+-----------------------
+GPT Image 1:
+  Total:      2
+  Passed:     2
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  1.000
+
+Nano Banana:
+  Total:      2
+  Passed:     2
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  1.000
+
+DALL-E 3:
+  Total:      2
+  Passed:     1
+  Failed:     1
+  Pass Rate:  50.0%
+  Avg Score:  0.500
+
+
+2.2 CHARACTER CONSISTENCY
+-------------------------
+GPT Image 1:
+  Total:      4
+  Passed:     4
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  0.987
+
+Nano Banana:
+  Total:      4
+  Passed:     4
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  0.979
+
+DALL-E 3:
+  Not evaluated (requires special setup)
+
+
+2.3 CSP (CONSTRAINT SATISFACTION PROBLEMS)
+------------------------------------------
+GPT Image 1:
+  Total:      20
+  Passed:     20
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  1.000
+
+Nano Banana:
+  Total:      20
+  Passed:     19
+  Failed:     1
+  Pass Rate:  95.0%
+  Avg Score:  0.950
+
+DALL-E 3:
+  Not evaluated (partial evaluation)
+
+
+2.4 NEGATIVE CONSTRAINTS
+------------------------
+GPT Image 1:
+  Total:      23
+  Passed:     23
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  0.940
+
+Nano Banana:
+  Total:      24
+  Passed:     24
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  0.947
+
+DALL-E 3:
+  Total:      9
+  Passed:     9
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  0.910
+
+
+2.5 STATE CONSTRAINTS
+---------------------
+GPT Image 1:
+  Total:      6
+  Passed:     5
+  Failed:     1
+  Pass Rate:  83.3%
+  Avg Score:  0.556
+
+Nano Banana:
+  Total:      6
+  Passed:     2
+  Failed:     4
+  Pass Rate:  33.3%
+  Avg Score:  0.537
+
+DALL-E 3:
+  Total:      1
+  Passed:     0
+  Failed:     1
+  Pass Rate:  0.0%
+  Avg Score:  0.496
+
+
+2.6 ATTRIBUTE CONSTRAINTS
+-------------------------
+GPT Image 1:
+  Total:      20
+  Passed:     11
+  Failed:     9
+  Pass Rate:  55.0%
+  Avg Score:  0.521
+
+Nano Banana:
+  Total:      21
+  Passed:     9
+  Failed:     12
+  Pass Rate:  42.9%
+  Avg Score:  0.517
+
+DALL-E 3:
+  Total:      8
+  Passed:     3
+  Failed:     5
+  Pass Rate:  37.5%
+  Avg Score:  0.501
+
+
+2.7 TABLE SLOT CONSTRAINTS
+--------------------------
+GPT Image 1:
+  Total:      42
+  Passed:     20
+  Failed:     22
+  Pass Rate:  47.6%
+  Avg Score:  0.488
+
+Nano Banana:
+  Total:      42
+  Passed:     23
+  Failed:     19
+  Pass Rate:  54.8%
+  Avg Score:  0.551
+
+DALL-E 3:
+  Total:      28
+  Passed:     0
+  Failed:     28
+  Pass Rate:  0.0%
+  Avg Score:  0.000
+
+
+2.8 COUNT CONSTRAINTS
+---------------------
+GPT Image 1:
+  Total:      16
+  Passed:     5
+  Failed:     11
+  Pass Rate:  31.2%
+  Avg Score:  0.491
+
+Nano Banana:
+  Total:      17
+  Passed:     3
+  Failed:     14
+  Pass Rate:  17.6%
+  Avg Score:  0.476
+
+DALL-E 3:
+  Total:      7
+  Passed:     0
+  Failed:     7
+  Pass Rate:  0.0%
+  Avg Score:  0.458
+
+
+2.9 LOGIC CONSTRAINTS
+---------------------
+GPT Image 1:
+  Total:      6
+  Passed:     3
+  Failed:     3
+  Pass Rate:  50.0%
+  Avg Score:  0.387
+
+Nano Banana:
+  Total:      6
+  Passed:     4
+  Failed:     2
+  Pass Rate:  66.7%
+  Avg Score:  0.504
+
+DALL-E 3:
+  Total:      4
+  Passed:     0
+  Failed:     4
+  Pass Rate:  0.0%
+  Avg Score:  0.000
+
+
+2.10 TEXT CONSTRAINTS
+---------------------
+GPT Image 1:
+  Total:      23
+  Passed:     3
+  Failed:     20
+  Pass Rate:  13.0%
+  Avg Score:  0.164
+
+Nano Banana:
+  Total:      25
+  Passed:     3
+  Failed:     22
+  Pass Rate:  12.0%
+  Avg Score:  0.149
+
+DALL-E 3:
+  Total:      17
+  Passed:     0
+  Failed:     17
+  Pass Rate:  0.0%
+  Avg Score:  0.021
+
+
+2.11 SKETCH-TO-RENDER CONSTRAINTS
+---------------------------------
+GPT Image 1:
+  Total:      5
+  Passed:     1
+  Failed:     4
+  Pass Rate:  20.0%
+  Avg Score:  0.456
+
+Nano Banana:
+  Total:      5
+  Passed:     1
+  Failed:     4
+  Pass Rate:  20.0%
+  Avg Score:  0.451
+
+DALL-E 3:
+  Not evaluated (requires special setup)
+
+
+================================================================================
+3. PERFORMANCE BY CATEGORY
+================================================================================
+
+3.1 CSP DEMO CATEGORY
+---------------------
+GPT Image 1:
+  Total:      20
+  Passed:     20
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  1.000
+
+Nano Banana:
+  Total:      20
+  Passed:     19
+  Failed:     1
+  Pass Rate:  95.0%
+  Avg Score:  0.950
+
+DALL-E 3:
+  Not evaluated (partial evaluation)
+
+
+3.2 COMPOSITION CATEGORY
+------------------------
+GPT Image 1:
+  Total:      27
+  Passed:     21
+  Failed:     6
+  Pass Rate:  77.8%
+  Avg Score:  0.658
+
+Nano Banana:
+  Total:      27
+  Passed:     14
+  Failed:     13
+  Pass Rate:  51.9%
+  Avg Score:  0.645
+
+DALL-E 3:
+  Total:      8
+  Passed:     2
+  Failed:     6
+  Pass Rate:  25.0%
+  Avg Score:  0.491
+
+
+3.3 ADVANCED CATEGORY
+---------------------
+GPT Image 1:
+  Total:      28
+  Passed:     14
+  Failed:     14
+  Pass Rate:  50.0%
+  Avg Score:  0.580
+
+Nano Banana:
+  Total:      28
+  Passed:     13
+  Failed:     15
+  Pass Rate:  46.4%
+  Avg Score:  0.543
+
+DALL-E 3:
+  Not evaluated (partial evaluation)
+
+
+3.4 NUTRITION LABEL CATEGORY
+----------------------------
+GPT Image 1:
+  Total:      60
+  Passed:     30
+  Failed:     30
+  Pass Rate:  50.0%
+  Avg Score:  0.475
+
+Nano Banana:
+  Total:      60
+  Passed:     34
+  Failed:     26
+  Pass Rate:  56.7%
+  Avg Score:  0.532
+
+DALL-E 3:
+  Total:      40
+  Passed:     4
+  Failed:     36
+  Pass Rate:  10.0%
+  Avg Score:  0.086
+
+
+3.5 POSTER TEXT CATEGORY
+------------------------
+GPT Image 1:
+  Total:      23
+  Passed:     7
+  Failed:     16
+  Pass Rate:  30.4%
+  Avg Score:  0.404
+
+Nano Banana:
+  Total:      28
+  Passed:     9
+  Failed:     19
+  Pass Rate:  32.1%
+  Avg Score:  0.438
+
+DALL-E 3:
+  Total:      28
+  Passed:     7
+  Failed:     21
+  Pass Rate:  25.0%
+  Avg Score:  0.354
+
+
+3.6 CHARACTER CONSISTENCY CATEGORY
+----------------------------------
+GPT Image 1:
+  Total:      4
+  Passed:     4
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  0.987
+
+Nano Banana:
+  Total:      4
+  Passed:     4
+  Failed:     0
+  Pass Rate:  100.0%
+  Avg Score:  0.979
+
+DALL-E 3:
+  Not evaluated (requires special setup)
+
+
+3.7 SKETCH-TO-RENDER CATEGORY
+------------------------------
+GPT Image 1:
+  Total:      5
+  Passed:     1
+  Failed:     4
+  Pass Rate:  20.0%
+  Avg Score:  0.456
+
+Nano Banana:
+  Total:      5
+  Passed:     1
+  Failed:     4
+  Pass Rate:  20.0%
+  Avg Score:  0.451
+
+DALL-E 3:
+  Not evaluated (requires special setup)
+
+
+================================================================================
+4. KEY PERFORMANCE INSIGHTS
+================================================================================
+
+4.1 STRONG PERFORMANCE AREAS (Pass Rate >= 90%)
+------------------------------------------------
+- Spatial Relationships: GPT Image 1 (100%), Nano Banana (100%)
+- Character Consistency: GPT Image 1 (100%), Nano Banana (100%)
+- CSP Constraints: GPT Image 1 (100%), Nano Banana (95%)
+- Negative Constraints: All models (100%)
+
+
+4.2 MODERATE PERFORMANCE AREAS (Pass Rate 40-70%)
+--------------------------------------------------
+- State Constraints: GPT Image 1 (83.3%), Nano Banana (33.3%)
+- Attribute Constraints: GPT Image 1 (55.0%), Nano Banana (42.9%)
+- Logic Constraints: Nano Banana (66.7%), GPT Image 1 (50.0%)
+- Table Slot Constraints: Nano Banana (54.8%), GPT Image 1 (47.6%)
+
+
+4.3 CHALLENGING AREAS (Pass Rate < 40%)
+----------------------------------------
+- Text Rendering: GPT Image 1 (13.0%), Nano Banana (12.0%), DALL-E 3 (0.0%)
+- Count Constraints: GPT Image 1 (31.2%), Nano Banana (17.6%), DALL-E 3 (0.0%)
+- Sketch-to-Render: GPT Image 1 (20.0%), Nano Banana (20.0%)
+
+
+4.4 MODEL COMPARISON SUMMARY
+-----------------------------
+Best Overall Performance: GPT Image 1 (58.1% pass rate)
+Most Cost-Effective: Nano Banana (54.7% pass rate, $0.24 vs $1.88)
+Best at Logic: Nano Banana (66.7% vs 50.0%)
+Best at Table Slots: Nano Banana (54.8% vs 47.6%)
+Best at State: GPT Image 1 (83.3% vs 33.3%)
+Best at Attributes: GPT Image 1 (55.0% vs 42.9%)
+
+
+================================================================================
+5. COST ANALYSIS
+================================================================================
+
+GPT Image 1:
+  Images Generated:   47
+  Cost per Image:     $0.040
+  Total Cost:         $1.88
+  Cost per Passed Constraint: ~$0.019
+
+Nano Banana:
+  Images Generated:   47
+  Cost per Image:     $0.005
+  Total Cost:         $0.24
+  Cost per Passed Constraint: ~$0.003
+
+DALL-E 3:
+  Images Generated:   11 (partial)
+  Cost per Image:     $0.040
+  Total Cost:         $0.44
+  Note: Evaluation incomplete
+
+
+================================================================================
+6. ERROR ANALYSIS
+================================================================================
+
+GPT Image 1:
+  Total Errors:       1
+  Error Rate:         0.6%
+
+Nano Banana:
+  Total Errors:       0
+  Error Rate:         0.0%
+
+DALL-E 3:
+  Total Errors:       36
+  Error Rate:         47.4%
+  Note: Many errors due to API billing limits and incomplete evaluation
+
+
+================================================================================
+7. RANKING BY CONSTRAINT TYPE
+================================================================================
+
+Spatial Constraints:
+  1. GPT Image 1 (100.0%)
+  2. Nano Banana (100.0%)
+  3. DALL-E 3 (50.0%)
+
+Character Consistency:
+  1. GPT Image 1 (100.0%)
+  2. Nano Banana (100.0%)
+  3. DALL-E 3 (N/A)
+
+CSP Constraints:
+  1. GPT Image 1 (100.0%)
+  2. Nano Banana (95.0%)
+  3. DALL-E 3 (N/A)
+
+Negative Constraints:
+  1. All models tied (100.0%)
+
+State Constraints:
+  1. GPT Image 1 (83.3%)
+  2. Nano Banana (33.3%)
+  3. DALL-E 3 (0.0%)
+
+Attribute Constraints:
+  1. GPT Image 1 (55.0%)
+  2. DALL-E 3 (37.5%)
+  3. Nano Banana (42.9%)
+
+Table Slot Constraints:
+  1. Nano Banana (54.8%)
+  2. GPT Image 1 (47.6%)
+  3. DALL-E 3 (0.0%)
+
+Count Constraints:
+  1. GPT Image 1 (31.2%)
+  2. Nano Banana (17.6%)
+  3. DALL-E 3 (0.0%)
+
+Logic Constraints:
+  1. Nano Banana (66.7%)
+  2. GPT Image 1 (50.0%)
+  3. DALL-E 3 (0.0%)
+
+Text Constraints:
+  1. GPT Image 1 (13.0%)
+  2. Nano Banana (12.0%)
+  3. DALL-E 3 (0.0%)
+
+Sketch-to-Render:
+  1. GPT Image 1 (20.0%)
+  2. Nano Banana (20.0%)
+  3. DALL-E 3 (N/A)
+
+
+================================================================================
+8. SUMMARY AND CONCLUSIONS
+================================================================================
+
+Overall Performance Ranking:
+  1. GPT Image 1: 58.1% pass rate (167 constraints, 97 passed)
+  2. Nano Banana: 54.7% pass rate (172 constraints, 94 passed)
+  3. DALL-E 3: 17.1% pass rate (76 constraints, 13 passed) - INCOMPLETE
+
+Key Strengths:
+  - All models excel at spatial relationships and negative constraints
+  - GPT Image 1 and Nano Banana show strong character consistency
+  - CSP constraints show excellent performance (95-100%)
+
+Key Weaknesses:
+  - Text rendering is a critical weakness across all models (0-13%)
+  - Count constraints are challenging (17-31% pass rate)
+  - Sketch-to-render shows low performance (20%)
+
+Cost-Efficiency:
+  - Nano Banana provides 8x better cost efficiency than GPT Image 1
+  - Nano Banana achieves comparable performance at 1/8th the cost
+
+Recommendations:
+  - For best overall quality: Use GPT Image 1
+  - For cost-effective deployment: Use Nano Banana
+  - For text rendering tasks: All models need significant improvement
+  - For counting tasks: All models need improvement, GPT Image 1 performs best
+
+
+================================================================================
+END OF PERFORMANCE SUMMARY
+================================================================================
+
+Generated: November 2025
+Source: VIF-Eval Benchmark Results
+Data Files: gpt_image1_results.json, nano_banana_results.json, dalle3_results.json
+

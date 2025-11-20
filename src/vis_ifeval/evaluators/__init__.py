@@ -6,11 +6,13 @@ from typing import TYPE_CHECKING
 
 from vis_ifeval.config import load_config
 from vis_ifeval.evaluators.base import ConstraintEvaluator
+from vis_ifeval.evaluators.character_consistency_eval import CharacterConsistencyEvaluator
 from vis_ifeval.evaluators.comp_eval import CompositionEvaluator
 from vis_ifeval.evaluators.csp_eval import CSPEvaluator
 from vis_ifeval.evaluators.label_eval import LabelEvaluator
 from vis_ifeval.evaluators.logic_eval import LogicEvaluator
 from vis_ifeval.evaluators.negative_eval import NegativeEvaluator
+from vis_ifeval.evaluators.sketch_to_render_eval import SketchToRenderEvaluator
 from vis_ifeval.evaluators.spatial_eval import SpatialEvaluator
 from vis_ifeval.evaluators.text_eval import TextEvaluator
 from vis_ifeval.utils.clip_utils import ClipConfig, ClipModelWrapper
@@ -44,6 +46,8 @@ class EvaluatorRegistry:
                 NegativeEvaluator(clip_wrapper),
                 CompositionEvaluator(clip_wrapper),
                 SpatialEvaluator(),  # Optional - will degrade gracefully
+                CharacterConsistencyEvaluator(clip_wrapper),  # Optional - requires InsightFace/YOLOv8
+                SketchToRenderEvaluator(clip_wrapper),  # Optional - requires OpenCV/scikit-image
             ]
         else:
             self.evaluators = evaluators

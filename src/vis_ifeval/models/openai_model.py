@@ -72,7 +72,8 @@ class OpenAIModel(ImageModel):
         client = OpenAI(**client_kwargs)
 
         if self.model_name == "gpt-image-1":
-            # GPT Image 1 model - uses b64_json response and quality parameter
+            # GPT Image 1 model - uses quality parameter
+            # Note: GPT Image 1 may return URL or b64_json depending on API version
             response = client.images.generate(
                 model=self.model_name,
                 prompt=prompt,
@@ -80,15 +81,27 @@ class OpenAIModel(ImageModel):
                 quality=self.quality,  # "low", "medium", "high"
                 n=1,
             )
-            # GPT Image 1 returns base64 encoded image
             import base64
             from io import BytesIO
             from PIL import Image
             
-            image_base64 = response.data[0].b64_json
-            image_data = base64.b64decode(image_base64)
-            img = Image.open(BytesIO(image_data))
-            return img
+            # Handle both b64_json and url formats
+            result = response.data[0]
+            if hasattr(result, 'b64_json') and result.b64_json:
+                # Base64 encoded image
+                image_base64 = result.b64_json
+                image_data = base64.b64decode(image_base64)
+                img = Image.open(BytesIO(image_data))
+                return img
+            elif hasattr(result, 'url') and result.url:
+                # URL format - download the image
+                import requests
+                image_url = result.url
+                img_response = requests.get(image_url)
+                img = Image.open(BytesIO(img_response.content))
+                return img
+            else:
+                raise ValueError("No image data found in response")
         elif self.model_name == "dall-e-3":
             response = client.images.generate(
                 model=self.model_name,

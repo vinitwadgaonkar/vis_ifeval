@@ -1,19 +1,50 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
+*.pyo
+*.pyd
 .Python
-env/
-venv/
-ENV/
-.venv
+*.so
 
-# Results and outputs
-results/*
-!results/.gitignore
-data/outputs/*
-!data/outputs/.gitkeep
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Logs
+*.log
+evaluation_log*.txt
+
+# Generated outputs
+data/outputs/
+results/*/images/
+results/*/*.png
+
+# Model weights
+*.pt
+*.pth
+weights/
+yolov8n.pt
+
+# Large generated files
+*.pdf
+*.zip
+comprehensive_report.pdf
+paper_assets_images.zip
+
+# Build artifacts
+*.egg-info/
+build/
+dist/
+
+# External repos
+deepseek_ocr_repo/
+
+# Temporary
+overleaf_package/
+test_*.png
+debug_*.py
+test_*.sh
 
 # IDE
 .vscode/
@@ -25,12 +56,5 @@ data/outputs/*
 .DS_Store
 Thumbs.db
 
-# W&B
-wandb/
-
-# Model weights (too large for git)
-weights/
-
 # Test files
-*.png
-!data/outputs/test/.gitkeep
+test_*.png
