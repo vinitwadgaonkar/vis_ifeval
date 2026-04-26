@@ -5,10 +5,6 @@
   "this_week": 0,
   "daily_visits": [
     {
-      "date": "2026-03-27",
-      "visits": 0
-    },
-    {
       "date": "2026-03-28",
       "visits": 0
     },
@@ -123,8 +119,12 @@
     {
       "date": "2026-04-25",
       "visits": 0
+    },
+    {
+      "date": "2026-04-26",
+      "visits": 0
     }
   ],
   "recent_visitors": [],
-  "last_updated": "2026-04-25T23:44:05.339270"
+  "last_updated": "2026-04-26T03:31:21.776682"
 }
